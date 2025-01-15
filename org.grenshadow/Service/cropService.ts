@@ -28,11 +28,11 @@ export async function deleteCrop(cropCode:number){
         console.log('Something went wrong'+err)
     }
 }
-export async function UpdateCrop(cropId:number,c:CropDTO ){
+export async function UpdateCrop(id:number,c:CropDTO){
     try{
-        await  prisma.crop.update({
-            where:{cropId :c.cropCode},
-            data:{
+        await prisma.crop.update({
+            where:{ cropCode :id},
+            data: {
                 cropName:c.cropName,
                 scientificName:c.scientificName,
                 category:c.category,
@@ -41,7 +41,7 @@ export async function UpdateCrop(cropId:number,c:CropDTO ){
             }
         })
     }catch (err){
-        console.log("Something went wrong when updating..."+err)
+        console.log('something went wrong!!!'+err)
     }
 }
 export async function getAllCrops(){
