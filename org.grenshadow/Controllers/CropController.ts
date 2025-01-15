@@ -1,6 +1,6 @@
 import express from "express";
 import {CropDTO} from "../DTO/CropDTO";
-import {deleteCrop, saveCrop, UpdateCrop} from "../Service/cropService";
+import {deleteCrop, getAllCrops, saveCrop, UpdateCrop} from "../Service/cropService";
 import e from "express";
 
 const router=express.Router();
@@ -33,6 +33,14 @@ router.delete('/deleteCrop/:id',async (req, res)=>{
         res.send("crop "+id+ " deleted successfully")
     }catch (err){
         console.log('something went wrong when deleting...'+err)
+    }
+})
+router.get('/getAll',async (req, res)=>{
+    try{
+        const crops =await getAllCrops();
+        res.json(crops)
+    }catch (err){
+        console.log("Couldn't get crop list")
     }
 })
 export default router;
