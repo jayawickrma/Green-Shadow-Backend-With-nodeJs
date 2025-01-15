@@ -21,3 +21,12 @@ model crop {
   season         String
   cropImage      String
 }
+
+model field {
+  fieldCode   Int    @id @default(autoincrement())
+  name        String
+  location    String
+  extentSize  String
+  fieldImage1 String
+  fieldImage2 String
+}
