@@ -18,7 +18,7 @@ export async function saveCrop(c:CropDTO){
         console.log("something went wrong when adding crop"+err);
     }
 }
-export async function deleteCustomer(cropCode:number){
+export async function deleteCrop(cropCode:number){
     try{
         await  prisma.crop.delete({
             where:{cropCode:cropCode}

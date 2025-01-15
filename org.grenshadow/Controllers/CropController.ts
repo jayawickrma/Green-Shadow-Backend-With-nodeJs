@@ -1,6 +1,6 @@
 import express from "express";
 import {CropDTO} from "../DTO/CropDTO";
-import {saveCrop, UpdateCrop} from "../Service/cropService";
+import {deleteCrop, saveCrop, UpdateCrop} from "../Service/cropService";
 import e from "express";
 
 const router=express.Router();
@@ -23,6 +23,16 @@ router.put('/updateCrop/:id',async (req, res)=>{
         res.send("crop "+id+" Updated Successfully...")
     }catch (err){
         console.log("something went wrong when updating.."+err)
+    }
+})
+
+router.delete('/deleteCrop/:id',async (req, res)=>{
+    const id:number =+ req.params.id;
+    try{
+        await deleteCrop(id);
+        res.send("crop "+id+ " deleted successfully")
+    }catch (err){
+        console.log('something went wrong when deleting...'+err)
     }
 })
 export default router;
