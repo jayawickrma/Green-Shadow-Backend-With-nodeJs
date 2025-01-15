@@ -1,5 +1,6 @@
 import {CropDTO} from "../DTO/CropDTO";
 import {PrismaClient}from '@prisma/client'
+import e from "express";
 const prisma =new PrismaClient();
 export async function saveCrop(c:CropDTO){
     try{
@@ -14,6 +15,39 @@ export async function saveCrop(c:CropDTO){
         })
         console.log("crop added successfully")
     }catch (err){
-        console.log("something went wrong when adding crop");
+        console.log("something went wrong when adding crop"+err);
+    }
+}
+export async function deleteCustomer(cropCode:number){
+    try{
+        await  prisma.crop.delete({
+            where:{cropCode:cropCode}
+        })
+        console.log("crop deleted successfully!!")
+    }catch (err){
+        console.log('Something went wrong'+err)
+    }
+}
+export async function UpdateCrop(cropId:number,c:CropDTO ){
+    try{
+        await  prisma.crop.update({
+            where:{cropId :c.cropCode},
+            data:{
+                cropName:c.cropName,
+                scientificName:c.scientificName,
+                category:c.category,
+                season:c.season,
+                cropImage:c.cropImage
+            }
+        })
+    }catch (err){
+        console.log("Something went wrong when updating..."+err)
+    }
+}
+export async function getAllCrops(){
+    try{
+        await prisma.crop.findMany();
+    }catch (err){
+        console.log("something went wrong"+err)
     }
 }
