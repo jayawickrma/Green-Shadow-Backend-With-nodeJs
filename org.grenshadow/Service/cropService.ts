@@ -6,7 +6,6 @@ export async function saveCrop(c:CropDTO){
     try{
         await prisma.crop.create({
             data:{
-                cropCode:c.cropCode,
                 cropName:c.cropName,
                 scientificName:c.scientificName,
                 category:c.category,
@@ -21,7 +20,7 @@ export async function saveCrop(c:CropDTO){
     }
 }
 
-export async function deleteCrop(id:string){
+export async function deleteCrop(id:number){
     try{
         await prisma.crop.delete({
                 where:{cropCode:id},
