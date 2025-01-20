@@ -21,7 +21,7 @@ export async function saveCrop(c:CropDTO){
     }
 }
 
-export async function deleteCrop(id:string){
+export async function deleteCrop(id:number){
     try{
         await prisma.crop.delete({
                 where:{cropCode:id},
