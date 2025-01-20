@@ -1,13 +1,19 @@
-export class CropDTO{
-    cropCode:string;
-    cropName:string;
-    scientificName:string;
-    category:string;
-    season:string;
-    cropImage:string;
+export class CropDTO {
+    cropCode: string;
+    cropName: string;
+    scientificName: string;
+    category: string;
+    season: string;
+    cropImage: string;
 
-
-    constructor(cropCode: string, cropName: string, scientificName: string, category: string, season: string, cropImage: string) {
+    constructor(
+        cropCode: string,
+        cropName: string,
+        scientificName: string,
+        category: string,
+        season: string,
+        cropImage: string
+    ) {
         this.cropCode = cropCode;
         this.cropName = cropName;
         this.scientificName = scientificName;

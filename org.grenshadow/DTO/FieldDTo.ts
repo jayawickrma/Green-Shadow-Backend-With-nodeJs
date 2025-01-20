@@ -1,13 +1,19 @@
-export class fieldDto{
-    fieldCode:string
-    name:string
-    location:string
-    extentSize:string
-    fieldImage1:string
-    fieldImage2:string
+export class FieldDTO {
+    fieldCode: string;
+    name: string;
+    location: string;
+    extentSize: number;
+    fieldImage1: string;
+    fieldImage2: string;
 
-
-    constructor(fieldCode: string, name: string, location: string, extentSize: string, fieldImage1: string, fieldImage2: string) {
+    constructor(
+        fieldCode: string,
+        name: string,
+        location: string,
+        extentSize: number,
+        fieldImage1: string,
+        fieldImage2: string
+    ) {
         this.fieldCode = fieldCode;
         this.name = name;
         this.location = location;

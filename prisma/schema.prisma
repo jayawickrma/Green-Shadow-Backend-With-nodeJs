@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,20 +7,96 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model crop {
-  cropCode       Int    @id @default(autoincrement())
+// Crop Entity
+model Crop {
+  cropCode       String  @id @unique
   cropName       String
   scientificName String
   category       String
   season         String
-  cropImage      String
+  cropImage      String  @db.LongText
+  logList        Log[]   @relation("CropLog")
+  fieldList      Field[] @relation("CropField")
 }
 
-model field {
-  fieldCode   Int    @id @default(autoincrement())
-  name        String
-  location    String
-  extentSize  String
-  fieldImage1 String
-  fieldImage2 String
+// Equipment Entity
+model Equipment {
+  equipmentCode             String         @id @unique
+  name                      String
+  type                      String
+  status                    String
+  availableCount            Int
+  staffEquipmentDetailsList StaffDetails[]
+  fieldList                 Field[]        @relation("EquipmentField")
+}
+
+// Field Entity
+model Field {
+  fieldCode      String      @id @unique
+  name           String
+  location       String
+  extentSize     Float
+  fieldImage1    String      @db.LongText
+  fieldImage2    String      @db.LongText
+  equipmentsList Equipment[] @relation("EquipmentField")
+  staffList      Staff[]     @relation("FieldStaff")
+  logList        Log[]       @relation("FieldLog")
+  cropList       Crop[]      @relation("CropField")
+}
+
+// Log Entity
+model Log {
+  logCode       String  @id @unique
+  date          String
+  logDetails    String
+  observedImage String  @db.LongText
+  staffList     Staff[] @relation("LogStaff")
+  cropList      Crop[]  @relation("CropLog")
+  fieldList     Field[] @relation("FieldLog")
+}
+
+// StaffDetails Entity
+model StaffDetails {
+  id                String    @id @unique
+  useEquipmentCount Int
+  staffEntity       Staff     @relation(fields: [staffEntityId], references: [memberCode])
+  equipmentEntity   Equipment @relation(fields: [equipmentEntityId], references: [equipmentCode])
+  staffEntityId     String
+  equipmentEntityId String
+}
+
+// Staff Entity
+model Staff {
+  memberCode                String         @id @unique
+  firstName                 String
+  lastName                  String
+  joinedDate                String
+  dateOfBirth               String
+  gender                    String
+  designation               String
+  addressLine1              String
+  addressLine2              String
+  addressLine3              String
+  addressLine4              String
+  addressLine5              String
+  contactNo                 String
+  email                     String         @unique
+  role                      String
+  staffEquipmentDetailsList StaffDetails[]
+  vehicleList               Vehicle[]
+  fieldList                 Field[]        @relation("FieldStaff")
+  logList                   Log[]          @relation("LogStaff")
+}
+
+// Vehicle Entity
+model Vehicle {
+  vehicleCode        String  @id @unique
+  licensePlateNumber String
+  name               String
+  category           String
+  fuelType           String
+  remark             String
+  status             String
+  staff              Staff?  @relation(fields: [staffId], references: [memberCode])
+  staffId            String?
 }
