@@ -3,51 +3,32 @@ import {fieldDTO} from "../DTO/FieldDTo";
 
 
 const prisma =new PrismaClient();
-export async function saveField(f:fieldDTO){
-    const newField =await prisma.field.create({
-        data:{
-            name:f.name,
-            location:f.location,
-            extentSize:f.extentSize,
-            fieldImage1:f.fieldImage1,
-            fieldImage2:f.fieldImage2
-        }
-    })
-    console.log('field saved successfully');
-}
 
-export async function deleteField(fieldCode:number){
+export async function addField(f:fieldDTO){
     try{
-        await prisma.field.delete({
-            where:{fieldCode:fieldCode}
-        })
-        console.log('field deleted successfully!!!')
-
-    }catch (err){
-        console.log('something went wrong...'+err)
-    }
-}
-export async function UpdateField(fieldCode:number,f:fieldDto){
-    try{
-        await prisma.field.update({
-            where :{fieldCode :fieldCode},
+        await prisma.field.create({
             data:{
+                fieldCode:f.fieldCode,
                 name:f.name,
                 location:f.location,
                 extentSize:f.extentSize,
                 fieldImage1:f.fieldImage1,
                 fieldImage2:f.fieldImage2
             }
-
         })
+        console.log('field saved successfully')
     }catch (err){
-        console.log('something went wrong when update this ....')
+        console.log('something went wrong when save field')
+        throw new Error('Something went wrong when save field')
     }
 }
-export async  function getAllFields(){
+export async function  deleteField(id:string){}
+export async function  updateField (id:string ,f:fieldDTO){}
+export async function getAllFields(){
     try{
-        await prisma.field.findMany();
+        await prisma.field.findMany()
     }catch (err){
-        console.log("couldn't load fields  .."+err)
+        console.log('couldnt load data '+err)
+        throw new Error('something went wrong')
     }
 }
