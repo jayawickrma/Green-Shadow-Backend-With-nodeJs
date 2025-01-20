@@ -17,10 +17,10 @@ router.post('/addCrop',async (req, res) => {
 })
 
 router.delete('/deleteCrop:id',async (req, res) => {
-    const cropCode:number =+ req.params.id;
+    const id =req.params.id
     try{
-        await deleteCrop(cropCode);
-        res.send('the crop '+cropCode+ ' deleted successfully')
+        await deleteCrop(id);
+        res.send('the crop '+id+ ' deleted successfully')
     }catch (err){
         console.log(err)
         throw new Error("couldn't delete..")
