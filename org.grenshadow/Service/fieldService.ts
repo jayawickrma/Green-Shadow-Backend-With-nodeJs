@@ -22,8 +22,34 @@ export async function addField(f:fieldDTO){
         throw new Error('Something went wrong when save field')
     }
 }
-export async function  deleteField(id:string){}
-export async function  updateField (id:string ,f:fieldDTO){}
+export async function  deleteField(id:string){
+    try{
+        await prisma.field.delete({
+            where:{fieldCode:id}
+        })
+        console.log('Log deleted Successfully')
+    }catch (err){
+        console.log('something went wrong' +err)
+        throw new Error('Something went wrong when deleting')
+    }
+}
+export async function  updateField (id:string ,f:fieldDTO){
+    try{
+        await prisma.field.update({
+            where:{fieldCode:id},
+            data:{
+                name:f.name,
+                location:f.location,
+                extentSize:f.extentSize,
+                fieldImage1:f.fieldImage1,
+                fieldImage2:f.fieldImage2
+            }
+        })
+    }catch (err){
+        console.log('something went wrong '+err)
+        throw new Error("something went wrong")
+    }
+}
 export async function getAllFields(){
     try{
         await prisma.field.findMany()
