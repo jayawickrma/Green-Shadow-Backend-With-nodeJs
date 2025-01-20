@@ -12,7 +12,9 @@ class EquipmentRoutes{
         }
         initialRoutes():void{
             this.router.post('/addEquipment',this.equipmentController.saveEquipment)
-            this
+            this.router.put('/updateEquipment',this.equipmentController.updateEquipment)
+            this.router.delete('/deleteEquipment',this.equipmentController.deleteEquipment)
+            this.router.get('/getAllEquipment',this.equipmentController.getAllEquipment)
         }
 }
 const equipmentRoutes:EquipmentRoutes =new EquipmentRoutes();
