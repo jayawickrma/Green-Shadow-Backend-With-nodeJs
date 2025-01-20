@@ -10,14 +10,18 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.2.1",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "prisma": "^6.2.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.6",
     "nodemon": "^3.1.9",
     "prisma": "^6.2.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "ts-node": "^10.9.2",
+    "globals": "^15.14.0",
+    "typescript-eslint": "^8.20.0"
   },
   "keywords": [],
   "description": ""
