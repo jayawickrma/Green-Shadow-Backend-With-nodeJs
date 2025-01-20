@@ -9,7 +9,7 @@ datasource db {
 
 // Crop Entity
 model Crop {
-  cropCode       String  @id @unique
+  cropCode       String  @id @unique()
   cropName       String
   scientificName String
   category       String
