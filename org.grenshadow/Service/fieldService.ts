@@ -8,7 +8,6 @@ export async function addField(f:fieldDTO){
     try{
         await prisma.field.create({
             data:{
-                fieldCode:f.fieldCode,
                 name:f.name,
                 location:f.location,
                 extentSize:f.extentSize,
@@ -22,7 +21,7 @@ export async function addField(f:fieldDTO){
         throw new Error('Something went wrong when save field')
     }
 }
-export async function  deleteField(id:string){
+export async function  deleteField(id:number){
     try{
         await prisma.field.delete({
             where:{fieldCode:id}
@@ -33,7 +32,7 @@ export async function  deleteField(id:string){
         throw new Error('Something went wrong when deleting')
     }
 }
-export async function  updateField (id:string ,f:fieldDTO){
+export async function  updateField (id:number ,f:fieldDTO){
     try{
         await prisma.field.update({
             where:{fieldCode:id},

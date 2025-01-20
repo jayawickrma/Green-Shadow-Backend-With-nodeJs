@@ -44,10 +44,19 @@ export async function getAllCrops(){
             throw new Error('Failed to load data')
         }
 }
-export async function updateCrop(id:string,c:CropDTO){
+export async function updateCrop(id:number,c:CropDTO){
         try{
-
-        }catch (err){
+            await prisma.crop.update({
+                where :{cropCode:id},
+                data:{
+                    cropName:c.cropName,
+                    scientificName:c.scientificName,
+                    category:c.category,
+                    season:c.season,
+                    cropImage:c.cropImage
+                }
+            })
+            } catch (err){
             console.log('Something went wrong ' +err)
             throw new Error('Something went wrong when updating crop')
         }
