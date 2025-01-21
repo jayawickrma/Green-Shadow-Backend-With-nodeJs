@@ -7,29 +7,24 @@ import {fieldDTO} from "../DTO/FieldDTo";
 export async function saveCrop(c: CropDTO) {
     console.log(c)
     try {
-        const cropData = {
-            cropName: c.cropName,
-            scientificName: c.scientificName,
-            category: c.category,
-            season: c.season,
-            cropImage: c.cropImage,
-            logList: {
-                connect: c.logList.map((log: LogDTO) => ({ logCode: log.logCode })),
+        await prisma.crop.create({
+            data: { cropName: c.cropName,
+                scientificName: c.scientificName,
+                category: c.category,
+                season: c.season,
+                cropImage: c.cropImage,
+                logList: {
+                    connect: c.logList.map((log) => ({ logCode:log.logCode })),
+                },
+                fieldList: {
+                    connect: c.fieldList.map((field: fieldDTO) => ({ fieldCode: field.fieldCode })),
+                }
             },
-            fieldList: {
-                connect: c.fieldList.map((field: fieldDTO) => ({ fieldCode: field.fieldCode })),
-            },
-        };
-
-        const newCrop = await prisma.crop.create({
-            data: cropData,
             include: {
                 logList: true,
                 fieldList: true,
             },
         });
-
-        return newCrop;
 
     } catch (err) {
         console.log('Failed to save crop:', err);
