@@ -1,5 +1,5 @@
 export class CropDTO {
-    cropCode: string;
+    cropCode: number;
     cropName: string;
     scientificName: string;
     category: string;
@@ -7,7 +7,7 @@ export class CropDTO {
     cropImage: string;
 
     constructor(
-        cropCode: string,
+        cropCode: number,
         cropName: string,
         scientificName: string,
         category: string,

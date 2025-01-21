@@ -1,5 +1,5 @@
 export class fieldDTO {
-    fieldCode: string;
+    fieldCode: number;
     name: string;
     location: string;
     extentSize: number;
@@ -7,7 +7,7 @@ export class fieldDTO {
     fieldImage2: string;
 
     constructor(
-        fieldCode: string,
+        fieldCode: number,
         name: string,
         location: string,
         extentSize: number,

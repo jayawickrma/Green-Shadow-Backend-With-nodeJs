@@ -1,5 +1,5 @@
 export class StaffDTO {
-    memberCode: string;
+    memberCode: number;
     firstName: string;
     lastName: string;
     joinedDate: string;
@@ -16,7 +16,7 @@ export class StaffDTO {
     role: string;
 
     constructor(
-        memberCode: string,
+        memberCode: number,
         firstName: string,
         lastName: string,
         joinedDate: string,

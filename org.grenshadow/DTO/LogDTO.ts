@@ -1,11 +1,11 @@
 export class LogDTO {
-    logCode: string;
+    logCode: number;
     date: string;
     logDetails: string;
     observedImage: string;
 
     constructor(
-        logCode: string,
+        logCode: number,
         date: string,
         logDetails: string,
         observedImage: string

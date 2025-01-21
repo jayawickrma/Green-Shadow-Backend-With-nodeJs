@@ -1,12 +1,12 @@
 export class EquipmentDTO {
-    equipmentCode: string;
+    equipmentCode: number;
     name: string;
     type: string;
     status: string;
     availableCount: number;
 
     constructor(
-        equipmentCode: string,
+        equipmentCode: number,
         name: string,
         type: string,
         status: string,

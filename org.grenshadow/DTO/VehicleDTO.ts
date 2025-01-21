@@ -1,5 +1,5 @@
 export class VehicleDTO {
-    vehicleCode: string;
+    vehicleCode: number;
     licensePlateNumber: string;
     name: string;
     category: string;
@@ -9,7 +9,7 @@ export class VehicleDTO {
     staffId?: string;
 
     constructor(
-        vehicleCode: string,
+        vehicleCode: number,
         licensePlateNumber: string,
         name: string,
         category: string,
