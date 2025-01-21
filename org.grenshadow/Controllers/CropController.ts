@@ -11,8 +11,10 @@ class CropController{
         }
     }
     async deleteCrop(req:any ,resp:any){
+        const id=parseInt(req.query['id'])
         try{
-            await deleteCrop(req.query['id'])
+            await deleteCrop(id)
+            console.log(id)
             resp.status(200).send("deleted successfully....")
         }catch (err){
             resp.status(500).send(err)
@@ -27,7 +29,7 @@ class CropController{
         }
     }
     async updateCrop(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         const cropDto:CropDTO =req.body
         try{
             await updateCrop(id,cropDto)

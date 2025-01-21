@@ -40,7 +40,7 @@ export async function getAllCrops(){
         try{
             const getAll =await prisma.crop.findMany()
                 if (getAll){
-                    return "Successfully loaded data .."
+                    return getAll
                 }
         }catch (err){
             console.log('failed to load data '+err)
@@ -50,7 +50,9 @@ export async function getAllCrops(){
 export async function updateCrop(id:number,c:CropDTO){
         try{
             await prisma.crop.update({
-                where :{cropCode:id},
+                where :{
+                    cropCode:id
+                },
                 data:{
                     cropName:c.cropName,
                     scientificName:c.scientificName,
@@ -59,8 +61,9 @@ export async function updateCrop(id:number,c:CropDTO){
                     cropImage:c.cropImage
                 }
             })
-            } catch (err){
-            console.log('Something went wrong ' +err)
-            throw new Error('Something went wrong when updating crop')
+            }
+            catch (err){
+                console.log('Something went wrong ' +err)
+                throw new Error('Something went wrong when updating crop')
         }
 }
