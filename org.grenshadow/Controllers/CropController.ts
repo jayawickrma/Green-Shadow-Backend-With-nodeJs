@@ -5,6 +5,7 @@ class CropController{
     async saveCrop(req:any ,resp :any){
         try{
             const save =await saveCrop(req.body)
+            console.log(save)
             resp.status(201).send(save)
         }catch (err){
             resp.status(500).send(err)

@@ -11,7 +11,8 @@ export async function saveCrop(c:CropDTO){
                 scientificName:c.scientificName,
                 category:c.category,
                 season:c.season,
-                cropImage:c.cropImage
+                cropImage:c.cropImage,
+
             }
         })
 
