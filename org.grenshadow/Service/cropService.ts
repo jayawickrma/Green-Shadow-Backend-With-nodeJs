@@ -17,7 +17,7 @@ export async function saveCrop(c: CropDTO) {
                     connect: c.logList.map((log) => ({ logCode:log.logCode })),
                 },
                 fieldList: {
-                    connect: c.fieldList.map((field: fieldDTO) => ({ fieldCode: field.fieldCode })),
+                    connect: c.fieldList.map((field) => ({ fieldCode: field.fieldCode })),
                 }
             },
             include: {
