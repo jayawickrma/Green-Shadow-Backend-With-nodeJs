@@ -4,7 +4,7 @@ const app =express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
-app.use('api/v1',mainRouter.router)
+app.use('ser',mainRouter.router)
 
 app.listen(3000,()=>{
   console.log('The server is starting on port 3000')
