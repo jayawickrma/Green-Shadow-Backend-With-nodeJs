@@ -1,6 +1,4 @@
 import {CropDTO} from "../DTO/CropDTO";
-import {PrismaClient}from '@prisma/client'
-import e from "express";
 import prisma from "../../prisma/Client";
 
 export async function saveCrop(c:CropDTO){
@@ -12,7 +10,6 @@ export async function saveCrop(c:CropDTO){
                 category:c.category,
                 season:c.season,
                 cropImage:c.cropImage,
-
             }
         })
 
@@ -26,7 +23,6 @@ export async function deleteCrop(id:number){
     try{
         await prisma.crop.delete({
                 where:{cropCode:id},
-
         })
         console.log('Crop deleted successfully !!!')
 
