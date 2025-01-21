@@ -1,7 +1,5 @@
-import {PrismaClient}from "@prisma/client"
 import {EquipmentDTO} from "../DTO/EquipmentDTO";
-
-const prisma = new PrismaClient()
+import prisma from "../../prisma/Client";
 
 export async function saveEqu(e:EquipmentDTO){
     try{

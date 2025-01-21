@@ -1,8 +1,7 @@
 import {PrismaClient} from '@prisma/client'
 import {fieldDTO} from "../DTO/FieldDTo";
 
-
-const prisma =new PrismaClient();
+import prisma from "../../prisma/Client";
 
 export async function addField(f:fieldDTO){
     try{
