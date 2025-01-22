@@ -8,7 +8,10 @@ export async function saveEqu(e:EquipmentDTO){
                 name:e.name,
                 type:e.type,
                 status:e.status,
-                availableCount:e.availableCount
+                availableCount:e.availableCount,
+                fieldList:{
+                    connect:e.fieldList.map((field)=>({fieldCode:field.fieldCode}))
+                }
             }
         })
     }catch (err){
@@ -43,7 +46,10 @@ export async function updateEqu(id:number,equipment:EquipmentDTO){
                 name:equipment.name,
                 type:equipment.type,
                 status:equipment.status,
-                availableCount:equipment.availableCount
+                availableCount:equipment.availableCount,
+                fieldList:{
+                    connect:equipment.fieldList.map((field)=>({fieldCode:field.fieldCode}))
+                }
             }
         })
     }catch (err){

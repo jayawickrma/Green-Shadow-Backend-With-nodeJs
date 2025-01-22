@@ -58,7 +58,7 @@ export async function  updateField (id:number ,f:fieldDTO){
                 },
                 cropList:{
                     connect:f.cropList.map((crop)=>({cropCode:crop.cropCode}))
-                }fi
+                }
             }
         })
     }catch (err){
