@@ -1,14 +1,11 @@
 import {CropDTO} from "../DTO/CropDTO";
 import prisma from "../../prisma/Client";
-import {LogDTO} from "../DTO/LogDTO";
-import {fieldDTO} from "../DTO/FieldDTo";
-
 
 export async function saveCrop(c: CropDTO) {
-    console.log(c)
     try {
         await prisma.crop.create({
-            data: { cropName: c.cropName,
+            data: {
+                cropName: c.cropName,
                 scientificName: c.scientificName,
                 category: c.category,
                 season: c.season,
@@ -29,8 +26,6 @@ export async function saveCrop(c: CropDTO) {
     } catch (err) {
         console.log('Failed to save crop:', err);
         throw new Error('Failed to save crop');
-    } finally {
-        await prisma.$disconnect();
     }
 }
 

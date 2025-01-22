@@ -11,7 +11,16 @@ export async function addField(f:fieldDTO){
                 location:f.location,
                 extentSize:f.extentSize,
                 fieldImage1:f.fieldImage1,
-                fieldImage2:f.fieldImage2
+                fieldImage2:f.fieldImage2,
+                logList:{
+                    connect:f.logList.map((log)=>({logCode:log.logCode}))
+                },
+                staffList:{
+                    connect:f.staffList.map((staff)=>({memberCode:staff.memberCode}))
+                },
+                cropList:{
+                    connect:f.cropList.map((crop)=>({cropCode:crop.cropCode}))
+                }
             }
         })
         console.log('field saved successfully')
@@ -40,7 +49,16 @@ export async function  updateField (id:number ,f:fieldDTO){
                 location:f.location,
                 extentSize:f.extentSize,
                 fieldImage1:f.fieldImage1,
-                fieldImage2:f.fieldImage2
+                fieldImage2:f.fieldImage2,
+                logList:{
+                    connect:f.logList.map((log)=>({logCode:log.logCode}))
+                },
+                staffList:{
+                    connect:f.staffList.map((staff)=>({memberCode:staff.memberCode}))
+                },
+                cropList:{
+                    connect:f.cropList.map((crop)=>({cropCode:crop.cropCode}))
+                }fi
             }
         })
     }catch (err){

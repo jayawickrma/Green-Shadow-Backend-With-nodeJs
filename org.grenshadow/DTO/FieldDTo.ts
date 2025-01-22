@@ -1,3 +1,7 @@
+import {StaffDTO} from "./StaffDTO";
+import {LogDTO} from "./LogDTO";
+import {CropDTO} from "./CropDTO";
+
 export interface fieldDTO {
     fieldCode: number;
     name: string;
@@ -5,5 +9,8 @@ export interface fieldDTO {
     extentSize: number;
     fieldImage1: string;
     fieldImage2: string;
+    staffList:StaffDTO[];
+    logList:LogDTO[];
+    cropList:CropDTO[]
 
 }
