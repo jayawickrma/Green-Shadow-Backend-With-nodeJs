@@ -7,7 +7,16 @@ export async function saveLog(l:LogDTO){
             data:{
                 date:l.date,
                 logDetails:l.logDetails,
-                observedImage:l.observedImage
+                observedImage:l.observedImage,
+                cropList:{
+                    connect:l.cropList.map((crop)=>({cropCode:crop.cropCode}))
+                },
+                fieldList:{
+                    connect:l.fieldList.map((field)=>({fieldCode:field.fieldCode}))
+                },
+                staffList:{
+                    connect:l.staffList.map((staff)=>({memberCode:staff.memberCode}))
+                }
             }
         })
     }catch (err){
@@ -44,7 +53,16 @@ export async function updateLog(id:number,l:LogDTO){
             data:{
                 date:l.date,
                 logDetails:l.logDetails,
-                observedImage:l.observedImage
+                observedImage:l.observedImage,
+                cropList:{
+                    connect:l.cropList.map((crop)=>({cropCode:crop.cropCode}))
+                },
+                fieldList:{
+                    connect:l.fieldList.map((field)=>({fieldCode:field.fieldCode}))
+                },
+                staffList:{
+                    connect:l.staffList.map((staff)=>({memberCode:staff.memberCode}))
+                }
             }
         })
     }catch (err){
