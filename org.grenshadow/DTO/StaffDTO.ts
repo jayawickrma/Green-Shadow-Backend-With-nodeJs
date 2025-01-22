@@ -1,3 +1,6 @@
+import {fieldDTO} from "./FieldDTo";
+import {LogDTO} from "./LogDTO";
+
 export interface StaffDTO {
     memberCode: number;
     firstName: string;
@@ -14,4 +17,6 @@ export interface StaffDTO {
     contactNo: string;
     email: string;
     role: string;
+    fieldList:fieldDTO[],
+    logList:LogDTO[]
 }
