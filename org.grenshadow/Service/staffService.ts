@@ -3,7 +3,7 @@ import {StaffDTO} from "../DTO/StaffDTO";
 
 export async function saveMember(s:StaffDTO){
     try{
-        await prisma.staff.create({
+        const save=await prisma.staff.create({
             data:{
                 firstName:s.firstName,
                 lastName:s.lastName,
@@ -26,6 +26,7 @@ export async function saveMember(s:StaffDTO){
                     connect:s.fieldList.map((field)=>({fieldCode:field.fieldCode}))
                 }
             }
+
         })
     }catch (err){
         console.log(err)
