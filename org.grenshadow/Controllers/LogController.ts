@@ -14,7 +14,7 @@ class LogController{
         }
     }
     async deleteLog(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         try{
             await deleteLog(id)
             resp.status(200).send("successfully deleted "+id)
@@ -23,7 +23,7 @@ class LogController{
         }
     }
     async updateLog(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         const l:LogDTO=req.body
         try{
             await updateLog(id,l)

@@ -11,7 +11,7 @@ class StaffController{
         }
     }
     async deleteStaff(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         try{
             await deleteStaff(id)
                 resp.status(200).send("staff id "+id+" member deleted..")
@@ -20,7 +20,7 @@ class StaffController{
         }
     }
     async updateStaff(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         const data =req.body
         try{
             await updateStaff(id,data)

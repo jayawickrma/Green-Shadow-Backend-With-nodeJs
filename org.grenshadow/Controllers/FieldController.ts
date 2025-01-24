@@ -11,7 +11,7 @@ class FieldController{
         }
     }
     async deleteField(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         try{
             await deleteField(id);
             resp.status(200).send('deleted...')
@@ -20,7 +20,7 @@ class FieldController{
         }
     }
     async updateField(req:any,resp:any){
-        const id =req.query['id']
+        const id =parseInt(req.query['id'])
         const fieldDto:fieldDTO =req.body
         try{
             await updateField(id,fieldDto)
