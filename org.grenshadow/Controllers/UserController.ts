@@ -9,7 +9,7 @@ const UserLoginDto = require('../dtos/UserLoginDto');
 const userService = require('../services/userService');
 
 class UserController{
-    async signIn(req:any,resp:any){
+    async signUp(req:any,resp:any){
         const {username,email,password} =req.body
         try{
             const bcryptPw =await bcrypt.hash(password,10)
@@ -19,6 +19,6 @@ class UserController{
             resp.json(err)
         }
     }
-    async signUp(req:any,resp:any){}
+    async signIn(req:any,resp:any){}
 }
 export default UserController;
