@@ -11,7 +11,7 @@ class UserController{
         const {username,email,password} =req.body
         try{
             const bcryptPw =await bcrypt.hash(password,10)
-            const saveUser =await createUser(username,email,bcryptPw)
+            const saveUser =await createUser(username,bcryptPw)
             resp.status(201).json({ message: 'User registered successfully!', saveUser });
         }catch (err){
             resp.json(err)
