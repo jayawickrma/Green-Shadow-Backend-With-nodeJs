@@ -1,12 +1,11 @@
-import {UserDTO} from "../DTO/UserDTO";
 import {createUser, findByEmail} from "../Service/UserService";
 
-const express = require('express');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const UserRegisterDto = require('../dtos/UserRegisterDto');
+
 const UserLoginDto = require('../dtos/UserLoginDto');
-const userService = require('../services/userService');
+
 
 class UserController{
     async signUp(req:any,resp:any){
