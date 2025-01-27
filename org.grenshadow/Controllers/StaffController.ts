@@ -33,9 +33,6 @@ class StaffController{
         try{
             const all =await getAllStaff()
             resp.status(200)
-                if (all){
-                    return all
-                }
         }catch (err){
             resp.status(500).send(err)
         }

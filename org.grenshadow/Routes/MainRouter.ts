@@ -5,11 +5,13 @@ import EquipmentRoutes from "./SubRoutes/EquipmentRoutes";
 import LogRoutes from "./SubRoutes/LogRoutes";
 import StaffRoutes from "./SubRoutes/StaffRoutes";
 import VehicleRoutes from "./SubRoutes/VehicleRoutes";
+import userRoutes from "./SubRoutes/UserRoutes";
 class MainRouter{
         router : Router;
 
         constructor() {
             this.router =Router()
+            this.router.use('/auth',userRoutes.router)
             this.router.use('/field',FieldRoutes.router)
             this.router.use('/crop',CropRoutes.router)
             this.router.use('/log',LogRoutes.router)
