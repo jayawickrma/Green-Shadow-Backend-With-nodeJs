@@ -3,8 +3,7 @@ import {createUser, findByEmail} from "../Service/UserService";
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-const UserLoginDto = require('../dtos/UserLoginDto');
+import {UserDTO} from '../DTO/UserDTO'
 
 
 class UserController{
@@ -20,7 +19,8 @@ class UserController{
     }
     async signIn(req:any,resp:any){
         const {email,password} =req.body
-        const userLoginDto = new UserLoginDto(email, password);
+        // @ts-ignore
+        const userLoginDto = new UserDTO (email, password);
         try{
             const findUser =await findByEmail(userLoginDto.email)
             // @ts-ignore
@@ -39,7 +39,6 @@ class UserController{
             resp.json({ message: 'Login successful!', token });
 
         }catch (err){
-
         }
     }
 }
