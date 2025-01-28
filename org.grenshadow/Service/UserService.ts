@@ -18,7 +18,10 @@ export async function createUser(email: any, bcryptPw: any){
 export async function findByEmail(email){
     try{
        const already=await prisma.user.findUnique({
-            where:{email:email},
+            where:{
+                email:email,
+
+            },
         })
         if (already){
             return "User Already exit..."

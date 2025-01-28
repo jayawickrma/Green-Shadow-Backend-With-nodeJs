@@ -3,6 +3,7 @@ import prisma from "../../prisma/Client";
 
 export async function saveCrop(c: CropDTO) {
     try {
+        console.log(c)
         await prisma.crop.create({
             data: {
                 cropName: c.cropName,

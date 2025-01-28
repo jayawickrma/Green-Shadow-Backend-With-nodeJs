@@ -3,6 +3,7 @@ import {CropDTO} from "../DTO/CropDTO";
 
 class CropController{
     async saveCrop(req:any ,resp :any){
+        console.log(req.body)
         try{
             const save =await saveCrop(req.body)
             console.log(save)

@@ -7,7 +7,8 @@ class FieldController{
             const save =await addField(req.body);
             resp.status(201).send(save)
         }catch (err){
-            resp.status(500).send(err)
+            console.log(err)
+            resp.status(500).json(err)
         }
     }
     async deleteField(req:any,resp:any){
