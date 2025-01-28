@@ -8,9 +8,16 @@ class UserController{
     async signUp(req:any,resp:any){
         const {email,password} =req.body
         try{
+            const alreadyExit =await findByEmail(email)
+            // @ts-ignore
+            if (alreadyExit){
+                return resp.status(400).json({ message: 'Email is already in use!' });
+            }
+
+
             const bcryptPw =await bcrypt.hash(password,10)
             const saveUser =await createUser(email,bcryptPw)
-            resp.status(201).json({ message: 'User registered successfully!', saveUser });
+            resp.status(201).json({ message: 'User registered successfully!'+saveUser});
         }catch (err){
             resp.json(err)
         }
