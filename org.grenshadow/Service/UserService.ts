@@ -1,12 +1,13 @@
 import prisma from "../../prisma/Client";
 
-export async function createUser(username: any, bcryptPw: any){
+export async function createUser(email: any, bcryptPw: any){
     try{
 
         await prisma.user.create({
             data:{
                 // @ts-ignore
-                username,bcryptPw,
+                email:email,
+                password:bcryptPw,
             }
         })
     }catch (err){
@@ -14,4 +15,12 @@ export async function createUser(username: any, bcryptPw: any){
     }
 }
 // @ts-ignore
-export async function findByEmail(email){}
+export async function findByEmail(email){
+    try{
+        await prisma.user.findUnique({
+            where:{email},
+        })
+    }catch (err){
+        console.log(err)
+    }
+}
