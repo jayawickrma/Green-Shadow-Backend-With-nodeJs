@@ -15,12 +15,11 @@ export async function createUser(email: any, bcryptPw: any){
     }
 }
 // @ts-ignore
-export async function findByEmail(email){
+export async function findByEmail(email:string){
     try{
        const already=await prisma.user.findUnique({
             where:{
                 email:email,
-
             },
         })
         if (already){
