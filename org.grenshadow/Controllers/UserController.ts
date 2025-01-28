@@ -14,7 +14,6 @@ class UserController{
                 return resp.status(400).json({ message: 'Email is already in use!' });
             }
 
-
             const bcryptPw =await bcrypt.hash(password,10)
             const saveUser =await createUser(email,bcryptPw)
             resp.status(201).json({ message: 'User registered successfully!'+saveUser});
