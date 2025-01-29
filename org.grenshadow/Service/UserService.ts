@@ -1,13 +1,15 @@
 import prisma from "../../prisma/Client";
+import {UserDTO} from "../DTO/UserDTO";
+import bcrypt from 'bcrypt'
 
-export async function createUser(email: any, bcryptPw: any){
+export async function createUser(user:UserDTO){
+    const hashedPw =await bcrypt.hash(user.password,10)
     try{
-
         await prisma.user.create({
             data:{
                 // @ts-ignore
                 email:email,
-                password:bcryptPw,
+                password:hashedPw,
             }
         })
     }catch (err){
@@ -15,11 +17,11 @@ export async function createUser(email: any, bcryptPw: any){
     }
 }
 // @ts-ignore
-export async function findByEmail(email:string){
+export async function findByEmail(verifyUser: UserDTO){
     try{
        const already=await prisma.user.findUnique({
             where:{
-                email:email,
+                email:verifyUser.email,
             },
         })
         if (already){
