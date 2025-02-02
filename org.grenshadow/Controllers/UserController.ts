@@ -13,7 +13,7 @@ class UserController {
                 const verified =await findByEmail(user);
 
                 if (verified){
-                    const token =jwt.sign({email},process.env.SECRET_KEY as Secret,{expiresIn:"2m"});
+                    const token =jwt.sign({email},process.env.SECRET_KEY as Secret,{expiresIn:"10m"});
                     const refreshToken =jwt.sign({email},process.env.REFRESH_TOKEN as Secret,{expiresIn:"7d"});
                     resp.json({accessToken:token,refreshToken:refreshToken});
                 }else {
