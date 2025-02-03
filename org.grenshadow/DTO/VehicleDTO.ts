@@ -6,5 +6,5 @@ export interface VehicleDTO {
     fuelType: string;
     remark: string;
     status: string;
-    staffId?: string;
+    staffId?: number;
 }
