@@ -1,6 +1,17 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
+import  multer from 'multer'
+import path from 'path'
 
+const storage =multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename:(req,file,cb)=>{
+        cb(null,Date.now() +path.extname(file.originalname))
+    }
+});
+const upload =multer({storage:storage})
 class CropController{
     async saveCrop(req:any ,resp :any){
         console.log(req.body)
