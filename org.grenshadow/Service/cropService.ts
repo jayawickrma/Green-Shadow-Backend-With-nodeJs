@@ -12,10 +12,10 @@ export async function saveCrop(c: CropDTO) {
                 category: c.category,
                 season: c.season,
                 cropImage: c.cropImage,
-                logList: {
+                logList:{
                     connect: c.logList.map((log) => ({ logCode:log.logCode })),
                 },
-                fieldList: {
+                fieldList:{
                     connect: c.fieldList.map((field) => ({ fieldCode: field.fieldCode })),
                 }
             },
