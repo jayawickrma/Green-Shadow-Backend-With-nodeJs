@@ -1,14 +1,10 @@
 import {CropDTO} from "../DTO/CropDTO";
 import prisma from "../../prisma/Client";
+import {splitString} from "../Utill/SplitString";
 
 export async function saveCrop(c: CropDTO) {
+    console.log("crop service",c)
     try {
-        console.log("Processing Crop Data:", c);
-
-        // Ensure `logList` and `fieldList` are arrays
-        const logList = Array.isArray(c.logList) ? c.logList : [];
-        const fieldList = Array.isArray(c.fieldList) ? c.fieldList : [];
-
         await prisma.crop.create({
             data: {
                 cropName: c.cropName,
@@ -16,8 +12,12 @@ export async function saveCrop(c: CropDTO) {
                 category: c.category,
                 season: c.season,
                 cropImage: c.cropImage,
-                logList: logList.length > 0 ? { connect: logList.map((log) => ({ logCode: log.logCode })) } : undefined,
-                fieldList: fieldList.length > 0 ? { connect: fieldList.map((field) => ({ fieldCode: field.fieldCode })) } : undefined,
+                logList: {
+                    connect: c.logList.map((log) => ({ logCode:log.logCode })),
+                },
+                fieldList: {
+                    connect: c.fieldList.map((field) => ({ fieldCode: field.fieldCode })),
+                }
             },
             include: {
                 logList: true,
@@ -26,10 +26,11 @@ export async function saveCrop(c: CropDTO) {
         });
 
     } catch (err) {
-        console.error("Failed to save crop:", err);
-        throw new Error("Failed to save crop");
+        console.log('Failed to save crop:', err);
+        throw new Error('Failed to save crop');
     }
 }
+
 
 
     export async function deleteCrop(id:number){
