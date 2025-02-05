@@ -1,20 +1,17 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
+import path from 'path';
+import multer from 'multer';
 
 class CropController{
+
     async  saveCrop(req: any, resp: any) {
         try {
-
-            const cropDto: CropDTO = req.body;
+            const cropDto:CropDTO =req.body
             console.log("Received Request Body:", cropDto);
-
-            let image = req.file ? req.file.filename : null;
 
             const savedCrop = await saveCrop(cropDto);
             console.log("Saved Crop:", savedCrop);
-
-
-
             resp.status(201).send(savedCrop);
         } catch (err) {
             console.error("Error Saving Crop:", err);

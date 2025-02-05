@@ -1,9 +1,14 @@
 import {CropDTO} from "../DTO/CropDTO";
 import prisma from "../../prisma/Client";
-import {splitString} from "../Utill/SplitString";
-
 export async function saveCrop(c: CropDTO) {
-    console.log("crop service",c)
+    console.log("crop service", c);
+
+    if (!c.cropImage){
+        throw new Error("Image is required.")
+    }
+
+    const image = c.cropImage;
+
     try {
         await prisma.crop.create({
             data: {
@@ -11,25 +16,25 @@ export async function saveCrop(c: CropDTO) {
                 scientificName: c.scientificName,
                 category: c.category,
                 season: c.season,
-                cropImage: c.cropImage,
-                logList:{
-                    connect: c.logList.map((log) => ({ logCode:log.logCode })),
-                },
-                fieldList:{
-                    connect: c.fieldList.map((field) => ({ fieldCode: field.fieldCode })),
-                }
+                cropImage: image,
+                logList: c.logList && Array.isArray(c.logList) && c.logList.length > 0
+                    ? { connect: c.logList.map((log) => ({ logCode: log.logCode })) }
+                    : undefined,
+                fieldList: c.fieldList && Array.isArray(c.fieldList) && c.fieldList.length > 0
+                    ? { connect: c.fieldList.map((field) => ({ fieldCode: field.fieldCode })) }
+                    : undefined,
             },
             include: {
                 logList: true,
                 fieldList: true,
             },
         });
-
     } catch (err) {
         console.log('Failed to save crop:', err);
         throw new Error('Failed to save crop');
     }
 }
+
 
 
 
