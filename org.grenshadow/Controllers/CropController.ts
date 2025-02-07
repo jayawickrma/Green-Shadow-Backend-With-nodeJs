@@ -11,7 +11,6 @@ class CropController{
             console.log("Received Request Body:", cropDto);
 
             const savedCrop = await saveCrop(cropDto);
-            console.log("Saved Crop:", savedCrop);
             resp.status(201).send(savedCrop);
         } catch (err) {
             console.error("Error Saving Crop:", err);
