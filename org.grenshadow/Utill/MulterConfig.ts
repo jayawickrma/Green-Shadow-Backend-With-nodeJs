@@ -4,7 +4,7 @@ import path from "path";
 // Define storage configuration
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/"); // Folder where images will be stored
+        cb(null, "org.grenshadow/Uploads"); // Folder where images will be stored
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Unique filename

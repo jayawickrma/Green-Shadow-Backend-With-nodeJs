@@ -8,7 +8,13 @@ class CropController{
     async  saveCrop(req: any, resp: any) {
         try {
             const cropDto:CropDTO =req.body
+            cropDto.cropImage =req.file.path
             console.log("Received Request Body:", cropDto);
+
+            if (!req.file) {
+                return resp.status(400).json({ error: "Image is required." });
+            }
+
 
             const savedCrop = await saveCrop(cropDto);
             resp.status(201).send(savedCrop);
