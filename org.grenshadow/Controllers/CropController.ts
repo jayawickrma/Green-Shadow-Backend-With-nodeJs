@@ -1,7 +1,5 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
-import path from 'path';
-import multer from 'multer';
 
 class CropController{
 
