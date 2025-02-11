@@ -1,6 +1,5 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
-import e from "express";
 
 class CropController{
 
@@ -10,11 +9,9 @@ class CropController{
                 resp.status(400).json({ message: "No file uploaded" });
                 return
             }
-            const file =req.file;
-            const base64 =file?.buffer.toString('base64');
-
 
             const data  =req.body;
+            data.file?.buffer.toString('base64');
 
             if (!data.fieldList){
                     data.fieldList=[]
