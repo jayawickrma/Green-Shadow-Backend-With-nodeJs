@@ -3,24 +3,29 @@ import {CropDTO} from "../DTO/CropDTO";
 
 class CropController{
 
-    async  saveCrop(req: any, resp: any) {
-        try {
-            const cropDto:CropDTO =req.body
-            cropDto.cropImage =req.file.path
-            console.log("Received Request Body:", cropDto);
+    async  saveCrop(req:any,resp:any) {
+       try{
+            if (!req.file){
+                resp.status(400).json({ message: "No file uploaded" });
+                return
+            }
+            const file =req.file;
+            const base64 =file?.buffer.toString('base64');
 
-            if (!req.file) {
-                return resp.status(400).json({ error: "Image is required." });
+
+            const data  =req.body;
+
+            if (!data.fieldList){
+                    data.fieldList=[]
+                    data.logList =[]
+            }else {
+                data.fieldList =data.fieldList.split(',')
+                data.logList =data.logList.split(',')
             }
 
-
-            const savedCrop = await saveCrop(cropDto);
-            resp.status(201).send(savedCrop);
-        } catch (err) {
-            console.error("Error Saving Crop:", err);
-            // @ts-ignore
-            resp.status(500).send({ error: "Failed to save crop", details: err.message });
-        }
+       }catch (err){
+           resp.status(500)
+       }
     }
 
     async deleteCrop(req:any ,resp:any){
