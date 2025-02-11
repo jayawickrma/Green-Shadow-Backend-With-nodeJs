@@ -1,5 +1,6 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
+import e from "express";
 
 class CropController{
 
@@ -23,8 +24,11 @@ class CropController{
                 data.logList =data.logList.split(',')
             }
 
+           const save =await saveCrop(data)
+                req.status(201).json(save)
+
        }catch (err){
-           resp.status(500)
+           resp.status(500).send(err)
        }
     }
 
