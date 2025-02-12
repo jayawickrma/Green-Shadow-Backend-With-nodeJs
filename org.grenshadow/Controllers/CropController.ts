@@ -11,6 +11,7 @@ class CropController{
             }
 
             const data  =req.body;
+           console.log(data)
             data.file?.buffer.toString('base64');
 
             if (!data.fieldList){
