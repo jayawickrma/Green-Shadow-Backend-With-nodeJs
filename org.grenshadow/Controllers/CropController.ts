@@ -12,7 +12,8 @@ class CropController{
 
             const data  =req.body;
            console.log(data)
-            data.file?.buffer.toString('base64');
+           console.log(req.file)
+            const image =req.file?.buffer.toString('base64');
 
             if (!data.fieldList){
                     data.fieldList=[]
@@ -22,10 +23,11 @@ class CropController{
                 data.logList =data.logList.split(',')
             }
 
-           const save =await saveCrop(data)
-                req.status(201).json(save)
+           const save =await saveCrop(data,image)
+                resp.status(201).json(save)
 
        }catch (err){
+           console.log(err)
            resp.status(500).send(err)
        }
     }

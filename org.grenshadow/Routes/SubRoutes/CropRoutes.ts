@@ -1,7 +1,10 @@
 import {Router} from "express";
 import CropController from "../../Controllers/CropController";
-import upload from "../../Utill/MulterConfig";
+import multer from "multer";
 
+
+const storage = multer.memoryStorage(); // Store files in memory (you can change it to disk storage)
+const upload = multer({ storage });
 
 class CropRoutes{
         router:Router;

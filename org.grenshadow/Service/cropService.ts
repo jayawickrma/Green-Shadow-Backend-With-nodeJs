@@ -1,13 +1,14 @@
 import {CropDTO} from "../DTO/CropDTO";
 import prisma from "../../prisma/Client";
-export async function saveCrop(c: CropDTO) {
+export async function saveCrop(c: CropDTO,image:string) {
+    console.log(c)
+    console.log(image ,"imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     console.log("crop service", c);
 
-    if (!c.cropImage){
+    if (!image){
         throw new Error("Image is required.")
     }
 
-    const image = c.cropImage;
 
     try {
         await prisma.crop.create({
