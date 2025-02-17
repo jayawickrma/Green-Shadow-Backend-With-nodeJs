@@ -49,7 +49,7 @@ export async function updateEqu(id:number,equipment:EquipmentDTO){
                 availableCount:equipment.availableCount,
                 EquipmentFieldDetails:{
                     create:equipment.fieldList.map((field)=>({fieldCode:field}))
-                },
+                }
             }
         })
     }catch (err){

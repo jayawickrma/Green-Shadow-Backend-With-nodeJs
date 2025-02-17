@@ -73,11 +73,11 @@ export async function updateStaff(id:number,s:StaffDTO){
                 contactNo:s.contactNo,
                 email:s.email,
                 role:s.role,
-                logList:{
-                    connect:s.logList.map((log)=>({logCode:log.logCode}))
+                LogStaffDetails:{
+                    create:s.logList.map((log)=>({logCode:log}))
                 },
-                fieldList:{
-                    connect:s.fieldList.map((field)=>({fieldCode:field.fieldCode}))
+                FieldStaffDetails:{
+                    create:s.fieldList.map((field)=>({fieldCode:field}))
                 }
             }
         })

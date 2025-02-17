@@ -50,14 +50,14 @@ export async function  updateField (id:number ,f:fieldDTO){
                 extentSize:f.extentSize,
                 fieldImage1:f.fieldImage1,
                 fieldImage2:f.fieldImage2,
-                logList:{
-                    connect:f.logList.map((log)=>({logCode:log.logCode}))
+                LogFieldsDetails:{
+                    create:f.logList.map((log)=>({logCode:log}))
                 },
-                staffList:{
-                    connect:f.staffList.map((staff)=>({memberCode:staff.memberCode}))
+                FieldStaffDetails:{
+                    create:f.staffList.map((staff)=>({memberCode:staff}))
                 },
-                cropList:{
-                    connect:f.cropList.map((crop)=>({cropCode:crop.cropCode}))
+                CropFieldDetails:{
+                    create:f.cropList.map((crop)=>({cropCode:crop}))
                 }
             }
         })

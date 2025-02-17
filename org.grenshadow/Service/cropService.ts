@@ -72,7 +72,13 @@ export async function updateCrop(id:number,c:CropDTO) {
                     scientificName: c.scientificName,
                     category: c.category,
                     season: c.season,
-                    cropImage: c.cropImage
+                    cropImage: c.cropImage,
+                    CropFieldDetails: {
+                        create:c.fieldList.map((field)=>({fieldCode:field}))
+                    },
+                    LogCropDetails:{
+                        create:c.logList.map((log)=>({logCode:log}))
+                    }
                 }
             })
         } catch (err) {
