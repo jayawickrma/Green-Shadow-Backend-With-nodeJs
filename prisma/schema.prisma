@@ -7,96 +7,195 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// Crop Entity
+// -----------------
+// Crop Model
+// -----------------
 model Crop {
-  cropCode       Int     @id @default(autoincrement())
-  cropName       String
-  scientificName String
-  category       String
-  season         String
-  cropImage      String  @db.LongText
-  logList        Log[]   @relation("CropLog")
-  fieldList      Field[] @relation("CropField")
+  cropCode         Int                @id @default(autoincrement())
+  cropName         String // Previously used in your Crop entity
+  scientificName   String
+  category         String
+  season           String
+  cropImage        String             @db.LongText
+  // Relations via join tables:
+  CropFieldDetails CropFieldDetails[]
+  LogCropDetails   LogCropDetails[]
 }
 
-// Equipment Entity
+// -----------------
+// Crop-Field Relationship (Join Table)
+// -----------------
+model CropFieldDetails {
+  id        Int   @id @default(autoincrement())
+  cropCode  Int
+  fieldCode Int
+  // Relations:
+  crop      Crop  @relation(fields: [cropCode], references: [cropCode], onDelete: NoAction, onUpdate: NoAction)
+  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([fieldCode])
+  @@index([cropCode])
+}
+
+// -----------------
+// Equipment Model
+// -----------------
 model Equipment {
-  equipmentCode             Int            @id @default(autoincrement())
-  name                      String
-  type                      String
-  status                    String
-  availableCount            Int
-  staffEquipmentDetailsList StaffDetails[]
-  fieldList                 Field[]        @relation("EquipmentField")
+  equipmentCode         Int                     @id @default(autoincrement())
+  name                  String
+  type                  String
+  status                String
+  availableCount        Int
+  // Relations:
+  EquipmentFieldDetails EquipmentFieldDetails[]
+  EquipmentStaffDetails EquipmentStaffDetails[]
 }
 
-// Field Entity
+// -----------------
+// Equipment-Field Relationship
+// -----------------
+model EquipmentFieldDetails {
+  id            Int       @id @default(autoincrement())
+  equipmentCode Int
+  fieldCode     Int
+  equipment     Equipment @relation(fields: [equipmentCode], references: [equipmentCode], onDelete: NoAction, onUpdate: NoAction)
+  field         Field     @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([fieldCode])
+  @@index([equipmentCode])
+}
+
+// -----------------
+// Equipment-Staff Relationship
+// -----------------
+model EquipmentStaffDetails {
+  id            Int       @id @default(autoincrement())
+  equipmentCode Int
+  staffId       Int
+  equipment     Equipment @relation(fields: [equipmentCode], references: [equipmentCode], onDelete: NoAction, onUpdate: NoAction)
+  staff         Staff     @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([equipmentCode])
+  @@index([staffId])
+}
+
+// -----------------
+// Field Model
+// -----------------
 model Field {
-  fieldCode      Int         @id @default(autoincrement())
-  name           String
-  location       String
-  extentSize     Float
-  fieldImage1    String      @db.LongText
-  fieldImage2    String      @db.LongText
-  equipmentsList Equipment[] @relation("EquipmentField")
-  staffList      Staff[]     @relation("FieldStaff")
-  logList        Log[]       @relation("FieldLog")
-  cropList       Crop[]      @relation("CropField")
+  fieldCode             Int                     @id @default(autoincrement())
+  name                  String
+  location              String
+  extentSize            Float
+  fieldImage1           String                  @db.LongText
+  fieldImage2           String                  @db.LongText
+  // Relations via join tables:
+  CropFieldDetails      CropFieldDetails[]
+  EquipmentFieldDetails EquipmentFieldDetails[]
+  FieldStaffDetails     FieldStaffDetails[]
+  LogFieldsDetails      LogFieldsDetails[]
+  // Additionally, Field has a direct relation to Log via the join table below in LogFieldsDetails.
 }
 
-// Log Entity
+// -----------------
+// Field-Staff Relationship
+// -----------------
+model FieldStaffDetails {
+  id        Int   @id @default(autoincrement())
+  fieldCode Int
+  staffId   Int
+  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+  staff     Staff @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([fieldCode])
+  @@index([staffId])
+}
+
+// -----------------
+// Log Model
+// -----------------
 model Log {
-  logCode       Int     @id @default(autoincrement())
-  date          String
-  logDetails    String
-  observedImage String  @db.LongText
-  staffList     Staff[] @relation("LogStaff")
-  cropList      Crop[]  @relation("CropLog")
-  fieldList     Field[] @relation("FieldLog")
+  logCode          Int                @id @default(autoincrement())
+  date             String
+  logDetails       String
+  observedImage    String             @db.LongText
+  // Relations via join tables:
+  LogStaffDetails  LogStaffDetails[]
+  LogCropDetails   LogCropDetails[]
+  LogFieldsDetails LogFieldsDetails[]
 }
 
-// StaffDetails Entity
-model StaffDetails {
-  id                Int       @id @default(autoincrement())
-  useEquipmentCount Int
-  staffEntity       Staff     @relation(fields: [staffEntityId], references: [memberCode])
-  equipmentEntity   Equipment @relation(fields: [equipmentEntityId], references: [equipmentCode])
-  staffEntityId     Int
-  equipmentEntityId Int
+// -----------------
+// Log-Crop Relationship
+// -----------------
+model LogCropDetails {
+  id       Int  @id @default(autoincrement())
+  logCode  Int
+  cropCode Int
+  log      Log  @relation(fields: [logCode], references: [logCode], onDelete: NoAction, onUpdate: NoAction)
+  crop     Crop @relation(fields: [cropCode], references: [cropCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([logCode])
+  @@index([cropCode])
 }
 
-// Staff Entity
+// -----------------
+// Log-Field Relationship
+// -----------------
+model LogFieldsDetails {
+  id        Int   @id @default(autoincrement())
+  logCode   Int
+  fieldCode Int
+  log       Log   @relation(fields: [logCode], references: [logCode], onDelete: NoAction, onUpdate: NoAction)
+  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([logCode])
+  @@index([fieldCode])
+}
+
+// -----------------
+// Log-Staff Relationship
+// -----------------
+model LogStaffDetails {
+  id      Int   @id @default(autoincrement())
+  logCode Int
+  staffId Int
+  log     Log   @relation(fields: [logCode], references: [logCode], onDelete: NoAction, onUpdate: NoAction)
+  staff   Staff @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([logCode])
+  @@index([staffId])
+}
+
+// -----------------
+// Staff Model
+// -----------------
 model Staff {
-  memberCode                Int            @id @default(autoincrement())
-  firstName                 String
-  lastName                  String
-  joinedDate                String
-  dateOfBirth               String
-  gender                    String
-  designation               String
-  addressLine1              String
-  addressLine2              String
-  addressLine3              String
-  addressLine4              String
-  addressLine5              String
-  contactNo                 String
-  email                     String         @unique
-  role                      String
-  staffEquipmentDetailsList StaffDetails[]
-  vehicleList               Vehicle[]
-  fieldList                 Field[]        @relation("FieldStaff")
-  logList                   Log[]          @relation("LogStaff")
+  memberCode            Int                     @id @default(autoincrement())
+  firstName             String
+  lastName              String
+  joinedDate            String
+  dateOfBirth           String
+  gender                String
+  designation           String
+  addressLine1          String
+  addressLine2          String
+  addressLine3          String
+  addressLine4          String
+  addressLine5          String
+  contactNo             String
+  email                 String                  @unique
+  role                  String
+  // Relations:
+  EquipmentStaffDetails EquipmentStaffDetails[]
+  FieldStaffDetails     FieldStaffDetails[]
+  LogStaffDetails       LogStaffDetails[]
+  vehicleList           Vehicle[]
 }
 
-// Vehicle Entity
+// -----------------
+// Vehicle Model
+// -----------------
 model Vehicle {
   vehicleCode        Int    @id @default(autoincrement())
   licensePlateNumber String
@@ -105,6 +204,19 @@ model Vehicle {
   fuelType           String
   remark             String
   status             String
-  staff              Staff? @relation(fields: [staffId], references: [memberCode])
   staffId            Int?
+  staff              Staff? @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([staffId])
+}
+
+// -----------------
+// User Model
+// -----------------
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

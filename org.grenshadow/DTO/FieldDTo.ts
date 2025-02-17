@@ -9,8 +9,8 @@ export interface fieldDTO {
     extentSize: number;
     fieldImage1: string;
     fieldImage2: string;
-    staffList:StaffDTO[];
-    logList:LogDTO[];
-    cropList:CropDTO[]
+    staffList:string[];
+    logList:string[];
+    cropList:string[]
 
 }

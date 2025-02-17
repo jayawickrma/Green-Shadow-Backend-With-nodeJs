@@ -8,14 +8,14 @@ export async function saveLog(l:LogDTO){
                 date:l.date,
                 logDetails:l.logDetails,
                 observedImage:l.observedImage,
-                cropList:{
-                    connect:l.cropList.map((crop)=>({cropCode:crop.cropCode}))
+                LogCropDetails:{
+                    create:l.cropList.map((crop)=>({cropCode:crop}))
                 },
-                fieldList:{
-                    connect:l.fieldList.map((field)=>({fieldCode:field.fieldCode}))
+                LogFieldsDetails:{
+                    create:l.fieldList.map((field)=>({fieldCode:field}))
                 },
-                staffList:{
-                    connect:l.staffList.map((staff)=>({memberCode:staff.memberCode}))
+                LogStaffDetails:{
+                    create:l.staffList.map((staff)=>({memberCode:staff}))
                 }
             }
         })

@@ -9,9 +9,9 @@ export async function saveEqu(e:EquipmentDTO){
                 type:e.type,
                 status:e.status,
                 availableCount:e.availableCount,
-                fieldList:{
-                    connect:e.fieldList.map((field)=>({fieldCode:field.fieldCode}))
-                }
+              EquipmentFieldDetails:{
+                    create:e.fieldList.map((field)=>({fieldCode:field}))
+              }
             }
         })
     }catch (err){
@@ -47,9 +47,9 @@ export async function updateEqu(id:number,equipment:EquipmentDTO){
                 type:equipment.type,
                 status:equipment.status,
                 availableCount:equipment.availableCount,
-                fieldList:{
-                    connect:equipment.fieldList.map((field)=>({fieldCode:field.fieldCode}))
-                }
+                EquipmentFieldDetails:{
+                    create:equipment.fieldList.map((field)=>({fieldCode:field}))
+                },
             }
         })
     }catch (err){

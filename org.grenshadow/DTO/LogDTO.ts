@@ -7,7 +7,7 @@ export interface LogDTO {
     date: string;
     logDetails: string;
     observedImage: string;
-    staffList:StaffDTO[],
-    fieldList:fieldDTO[],
-    cropList:CropDTO[]
+    staffList:string[],
+    fieldList:string[],
+    cropList:string[]
 }

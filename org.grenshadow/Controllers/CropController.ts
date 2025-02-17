@@ -14,16 +14,16 @@ class CropController{
            const data  =req.body;
            const image =req.file?.buffer.toString('base64');
 
-                   if (data.logList) {
-                       data.logList = JSON.parse(data.logList);
+                   if (!data.logList) {
+                       data.logList = []
                    } else {
-                       data.logList = [];
+                       data.logList = data.logList.split(',');
                    }
 
-                   if (data.fieldList) {
-                       data.fieldList = JSON.parse(data.fieldList);
+                   if (!data.fieldList) {
+                       data.fieldList = []
                    } else {
-                       data.fieldList = [];
+                       data.fieldList = data.fieldList.split(',');
                    }
 
            const save =await saveCrop(data,image)
@@ -36,7 +36,7 @@ class CropController{
     }
 
     async deleteCrop(req:any ,resp:any){
-        const id=parseInt(req.query['id'])
+        const id=req.query['id']
         try{
             await deleteCrop(id)
             console.log(id)

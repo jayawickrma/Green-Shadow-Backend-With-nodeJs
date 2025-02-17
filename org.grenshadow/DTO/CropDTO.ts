@@ -8,6 +8,6 @@ export interface CropDTO {
     category: string;
     season: string;
     cropImage: string;
-    logList:LogDTO[];
-    fieldList:fieldDTO[]
+    logList:string[];
+    fieldList:string[]
 }
