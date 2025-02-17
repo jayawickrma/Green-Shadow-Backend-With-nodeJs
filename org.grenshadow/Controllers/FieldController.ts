@@ -4,7 +4,41 @@ import {fieldDTO} from "../DTO/FieldDTo";
 class FieldController{
     async saveField(req:any,resp:any){
         try{
-            const save =await addField(req.body);
+
+            if (!req.file){
+                resp.status(400).json({ message: "No file uploaded" });
+                return
+            }
+
+            const data  =req.body;
+            const image =req.file?.buffer.toString('base64');
+
+            if (!data.staffList){
+                data.staffList =[];
+            }else {
+                const staffList =data.staffList.split(',')
+                const staffs:number[] =staffList.map(Number)
+                data.staffList(staffs)
+            }
+
+            if (!data.logList){
+                data.logList =[];
+            }else {
+                const logList =data.logList.split(',')
+                const logs:number[] =logList.map(Number)
+                data.logList(logs)
+            }
+
+            if (!data.cropList){
+                data.cropList =[]
+            }else {
+                const cropList =data.cropList.split(',');
+                const crops:number[] =cropList.map(Number);
+                data.cropList(crops)
+            }
+
+
+            const save =await addField(data,image);
             resp.status(201).send(save)
         }catch (err){
             console.log(err)

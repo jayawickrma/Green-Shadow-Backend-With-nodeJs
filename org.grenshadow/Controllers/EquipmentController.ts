@@ -4,7 +4,7 @@ class EquipmentController{
     async saveEquipment(req:any ,resp:any){
         try{
             const save =await saveEqu(req.body)
-            resp.status(201).send(save)
+            resp.status(201).json(save)
             console.log("saved..")
         }catch (err){
             resp.status(500).send(err)

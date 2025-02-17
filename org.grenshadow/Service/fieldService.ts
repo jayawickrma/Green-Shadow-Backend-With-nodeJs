@@ -3,14 +3,17 @@ import {fieldDTO} from "../DTO/FieldDTo";
 
 import prisma from "../../prisma/Client";
 
-export async function addField(f:fieldDTO){
+export async function addField(f:fieldDTO,image:string){
     try{
+        if (!image) {
+            throw new Error("Image is required.");
+         }
         await prisma.field.create({
             data:{
                 name:f.name,
                 location:f.location,
                 extentSize:f.extentSize,
-                fieldImage1:f.fieldImage1,
+                fieldImage1:image,
                 fieldImage2:f.fieldImage2,
                 LogFieldsDetails:{
                     create:f.logList.map((log)=>({logCode:log}))
