@@ -1,5 +1,6 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
+import {type} from "os";
 
 class CropController{
 
@@ -17,14 +18,19 @@ class CropController{
                    if (!data.logList) {
                        data.logList = []
                    } else {
-                       data.logList = data.logList.split(',');
+                       const logList:string[] = data.logList.split(',');
+                       const logs: number[] = logList.map(Number);
+                       data.logList = logs;
                    }
 
                    if (!data.fieldList) {
                        data.fieldList = []
                    } else {
-                       data.fieldList = data.fieldList.split(',');
+                       const fieldList:string[] =data.fieldList.split(',')
+                       const fields :number[] =fieldList.map(Number);
+                       data.fieldList =fields
                    }
+
 
            const save =await saveCrop(data,image)
                 resp.status(201).json(save)
@@ -36,7 +42,7 @@ class CropController{
     }
 
     async deleteCrop(req:any ,resp:any){
-        const id=req.query['id']
+        const id=parseInt(req.query['id'])
         try{
             await deleteCrop(id)
             console.log(id)

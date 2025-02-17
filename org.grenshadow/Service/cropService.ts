@@ -1,7 +1,7 @@
 import {CropDTO} from "../DTO/CropDTO";
 import prisma from "../../prisma/Client";
 export async function saveCrop(c: CropDTO,image:string) {
-        console.log(c.fieldList, c.logList);
+
 
         if (!image) {
             throw new Error("Image is required.");
