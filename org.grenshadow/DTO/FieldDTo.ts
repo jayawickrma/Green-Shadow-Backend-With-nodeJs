@@ -11,6 +11,6 @@ export interface fieldDTO {
     fieldImage2: string;
     staffList:number[];
     logList:number[];
-    cropList:number[]
+    cropList:number[];
 
 }
