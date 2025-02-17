@@ -7,9 +7,11 @@ export async function createUser(user:UserDTO){
     try{
         await prisma.user.create({
             data:{
-                // @ts-ignore
-                email:email,
+                email:user.email,
                 password:hashedPw,
+                createdAt:new Date(),
+                updatedAt :new Date()
+
             }
         })
     }catch (err){

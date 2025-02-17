@@ -7,13 +7,15 @@ class UserController {
             const email =req.body.email;
             const password =req.body.password;
 
+            console.log(email,password)
+
             const user:UserDTO ={email,password}
 
             try{
                 const verified =await findByEmail(user);
 
                 if (verified){
-                    const token =jwt.sign({email},process.env.SECRET_KEY as Secret,{expiresIn:"10m"});
+                    const token =jwt.sign({email},process.env.SECRET_KEY as Secret,{expiresIn:"30m"});
                     const refreshToken =jwt.sign({email},process.env.REFRESH_TOKEN as Secret,{expiresIn:"7d"});
                     resp.json({accessToken:token,refreshToken:refreshToken});
                 }else {

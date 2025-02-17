@@ -16,6 +16,7 @@ export async function addField(f:fieldDTO){
                     create:f.logList.map((log)=>({logCode:log}))
                 },
                 FieldStaffDetails:{
+                    // @ts-ignore
                     create:f.staffList.map((staff)=>({memberCode:staff}))
                 },
                 CropFieldDetails:{
@@ -54,6 +55,7 @@ export async function  updateField (id:number ,f:fieldDTO){
                     create:f.logList.map((log)=>({logCode:log}))
                 },
                 FieldStaffDetails:{
+                    // @ts-ignore
                     create:f.staffList.map((staff)=>({memberCode:staff}))
                 },
                 CropFieldDetails:{

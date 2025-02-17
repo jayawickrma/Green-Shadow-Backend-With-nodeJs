@@ -15,7 +15,8 @@ export async function saveLog(l:LogDTO){
                     create:l.fieldList.map((field)=>({fieldCode:field}))
                 },
                 LogStaffDetails:{
-                    create:l.staffList.map((staff)=>({memberCode:staff}))
+                    // @ts-ignore
+                    create:l.staffList.map((member)=>({memberCode:member}))
                 }
             }
         })
@@ -48,6 +49,7 @@ export async function getAllLogs(){
 
 export async function updateLog(id:number,l:LogDTO){
     try{
+
         await prisma.log.update({
             where:{logCode:id},
             data:{
@@ -61,7 +63,8 @@ export async function updateLog(id:number,l:LogDTO){
                     create:l.fieldList.map((field)=>({fieldCode:field}))
                 },
                 LogStaffDetails:{
-                    create:l.staffList.map((staff)=>({memberCode:staff}))
+                    // @ts-ignore
+                    create:l.staffList.map((member)=>({memberCode:member}))
                 }
             }
         })
