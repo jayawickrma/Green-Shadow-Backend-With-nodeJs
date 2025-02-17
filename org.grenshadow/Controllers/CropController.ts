@@ -18,7 +18,7 @@ class CropController{
                    if (!data.logList) {
                        data.logList = []
                    } else {
-                       const logList:string[] = data.logList.split(',');
+                       const logList= data.logList.split(',');
                        const logs: number[] = logList.map(Number);
                        data.logList = logs;
                    }
@@ -26,7 +26,7 @@ class CropController{
                    if (!data.fieldList) {
                        data.fieldList = []
                    } else {
-                       const fieldList:string[] =data.fieldList.split(',')
+                       const fieldList =data.fieldList.split(',')
                        const fields :number[] =fieldList.map(Number);
                        data.fieldList =fields
                    }
