@@ -6,5 +6,5 @@ export interface EquipmentDTO {
     type: string;
     status: string;
     availableCount: number;
-    fieldList:string[]
+    fieldList:number[]
 }

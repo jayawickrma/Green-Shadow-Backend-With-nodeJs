@@ -17,6 +17,6 @@ export interface StaffDTO {
     contactNo: string;
     email: string;
     role: string;
-    fieldList:string[],
-    logList:string[]
+    fieldList:number[],
+    logList:number[]
 }
