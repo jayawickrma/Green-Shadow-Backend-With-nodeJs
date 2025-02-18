@@ -40,7 +40,7 @@ class LogController{
             }
 
             const save=await saveLog(logDto,image)
-            resp.status(201).json(save,"Saved...")
+            resp.status(201).json("Saved...")
         }catch (err){
             console.log(err)
             resp.status(500).send(err)

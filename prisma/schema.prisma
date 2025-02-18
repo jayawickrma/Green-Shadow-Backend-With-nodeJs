@@ -12,12 +12,11 @@ datasource db {
 // -----------------
 model Crop {
   cropCode         Int                @id @default(autoincrement())
-  cropName         String // Previously used in your Crop entity
+  cropName         String
   scientificName   String
   category         String
   season           String
   cropImage        String             @db.LongText
-  // Relations via join tables:
   CropFieldDetails CropFieldDetails[]
   LogCropDetails   LogCropDetails[]
 }
@@ -29,9 +28,8 @@ model CropFieldDetails {
   id        Int   @id @default(autoincrement())
   cropCode  Int
   fieldCode Int
-  // Relations:
-  crop      Crop  @relation(fields: [cropCode], references: [cropCode], onDelete: NoAction, onUpdate: NoAction)
-  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+  crop      Crop  @relation(fields: [cropCode], references: [cropCode], onDelete: Cascade, onUpdate: Cascade)
+  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([fieldCode])
   @@index([cropCode])
@@ -46,7 +44,6 @@ model Equipment {
   type                  String
   status                String
   availableCount        Int
-  // Relations:
   EquipmentFieldDetails EquipmentFieldDetails[]
   EquipmentStaffDetails EquipmentStaffDetails[]
 }
@@ -58,8 +55,8 @@ model EquipmentFieldDetails {
   id            Int       @id @default(autoincrement())
   equipmentCode Int
   fieldCode     Int
-  equipment     Equipment @relation(fields: [equipmentCode], references: [equipmentCode], onDelete: NoAction, onUpdate: NoAction)
-  field         Field     @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+  equipment     Equipment @relation(fields: [equipmentCode], references: [equipmentCode], onDelete: Cascade, onUpdate: Cascade)
+  field         Field     @relation(fields: [fieldCode], references: [fieldCode], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([fieldCode])
   @@index([equipmentCode])
@@ -72,8 +69,8 @@ model EquipmentStaffDetails {
   id            Int       @id @default(autoincrement())
   equipmentCode Int
   staffId       Int
-  equipment     Equipment @relation(fields: [equipmentCode], references: [equipmentCode], onDelete: NoAction, onUpdate: NoAction)
-  staff         Staff     @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
+  equipment     Equipment @relation(fields: [equipmentCode], references: [equipmentCode], onDelete: Cascade, onUpdate: Cascade)
+  staff         Staff     @relation(fields: [staffId], references: [memberCode], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([equipmentCode])
   @@index([staffId])
@@ -88,26 +85,9 @@ model Field {
   location              String
   extentSize            String
   fieldImage            String                  @db.LongText
-  // Relations via join tables:
   CropFieldDetails      CropFieldDetails[]
   EquipmentFieldDetails EquipmentFieldDetails[]
-  FieldStaffDetails     FieldStaffDetails[]
   LogFieldsDetails      LogFieldsDetails[]
-  // Additionally, Field has a direct relation to Log via the join table below in LogFieldsDetails.
-}
-
-// -----------------
-// Field-Staff Relationship
-// -----------------
-model FieldStaffDetails {
-  id        Int   @id @default(autoincrement())
-  fieldCode Int
-  staffId   Int
-  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
-  staff     Staff @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
-
-  @@index([fieldCode])
-  @@index([staffId])
 }
 
 // -----------------
@@ -118,7 +98,6 @@ model Log {
   date             String
   logDetails       String
   observedImage    String             @db.LongText
-  // Relations via join tables:
   LogStaffDetails  LogStaffDetails[]
   LogCropDetails   LogCropDetails[]
   LogFieldsDetails LogFieldsDetails[]
@@ -131,8 +110,8 @@ model LogCropDetails {
   id       Int  @id @default(autoincrement())
   logCode  Int
   cropCode Int
-  log      Log  @relation(fields: [logCode], references: [logCode], onDelete: NoAction, onUpdate: NoAction)
-  crop     Crop @relation(fields: [cropCode], references: [cropCode], onDelete: NoAction, onUpdate: NoAction)
+  log      Log  @relation(fields: [logCode], references: [logCode], onDelete: Cascade, onUpdate: Cascade)
+  crop     Crop @relation(fields: [cropCode], references: [cropCode], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([logCode])
   @@index([cropCode])
@@ -145,8 +124,8 @@ model LogFieldsDetails {
   id        Int   @id @default(autoincrement())
   logCode   Int
   fieldCode Int
-  log       Log   @relation(fields: [logCode], references: [logCode], onDelete: NoAction, onUpdate: NoAction)
-  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: NoAction, onUpdate: NoAction)
+  log       Log   @relation(fields: [logCode], references: [logCode], onDelete: Cascade, onUpdate: Cascade)
+  field     Field @relation(fields: [fieldCode], references: [fieldCode], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([logCode])
   @@index([fieldCode])
@@ -159,8 +138,8 @@ model LogStaffDetails {
   id      Int   @id @default(autoincrement())
   logCode Int
   staffId Int
-  log     Log   @relation(fields: [logCode], references: [logCode], onDelete: NoAction, onUpdate: NoAction)
-  staff   Staff @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
+  log     Log   @relation(fields: [logCode], references: [logCode], onDelete: Cascade, onUpdate: Cascade)
+  staff   Staff @relation(fields: [staffId], references: [memberCode], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([logCode])
   @@index([staffId])
@@ -185,28 +164,8 @@ model Staff {
   contactNo             String
   email                 String                  @unique
   role                  String
-  // Relations:
   EquipmentStaffDetails EquipmentStaffDetails[]
-  FieldStaffDetails     FieldStaffDetails[]
   LogStaffDetails       LogStaffDetails[]
-  vehicleList           Vehicle[]
-}
-
-// -----------------
-// Vehicle Model
-// -----------------
-model Vehicle {
-  vehicleCode        Int    @id @default(autoincrement())
-  licensePlateNumber String
-  name               String
-  category           String
-  fuelType           String
-  remark             String
-  status             String
-  staffId            Int?
-  staff              Staff? @relation(fields: [staffId], references: [memberCode], onDelete: NoAction, onUpdate: NoAction)
-
-  @@index([staffId])
 }
 
 // -----------------
