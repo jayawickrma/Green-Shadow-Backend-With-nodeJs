@@ -28,7 +28,6 @@ export async function saveCrop(c: CropDTO,image:string) {
                     LogCropDetails: true,
                 },
             });
-
             return result;
         } catch (err) {
             console.log('Failed to save crop:', err);
