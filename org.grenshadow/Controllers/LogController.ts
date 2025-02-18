@@ -1,32 +1,48 @@
 import {exec} from "child_process";
 import {LogDTO} from "../DTO/LogDTO";
 import {deleteLog, getAllLogs, saveLog, updateLog} from "../Service/logService";
-import {updateEqu} from "../Service/equipmentService";
 
 class LogController{
     async saveLog(req:any,resp:any){
-        const logDto =req.body
-        const image =req.file.buffer.toString('base64');
-
-        if (!req.file){
-            resp.status(400).json({ message: "No file uploaded" });
-            return
-        }
-
-        if (!logDto.fieldList) {
-            logDto.fieldList = []
-        } else {
-            const fieldList =logDto.fieldList.split(',')
-            const fields :number[] =fieldList.map(Number);
-            logDto.fieldList =fields
-        }
-
-
-
         try{
+            const logDto =req.body
+
+
+            if (!req.file){
+                resp.status(400).json({ message: "No file uploaded" });
+                return
+            }
+
+            const image =req.file.buffer.toString('base64');
+
+
+            if (!logDto.staffList){
+                logDto.staffList =[];
+            }else {
+                const staffList =logDto.staffList.split(',')
+                const staffs:number[] =staffList.map(Number)
+                logDto.staffList=staffs
+            }
+            if (!logDto.cropList){
+                logDto.cropList =[]
+            }else {
+                const cropList =logDto.cropList.split(',');
+                const crops:number[] =cropList.map(Number);
+                logDto.cropList=crops
+            }
+
+            if (!logDto.fieldList) {
+                logDto.fieldList = []
+            } else {
+                const fieldList =logDto.fieldList.split(',')
+                const fields :number[] =fieldList.map(Number);
+                logDto.fieldList =fields
+            }
+
             const save=await saveLog(logDto,image)
-            resp.status(201).send(save,"Saved...")
+            resp.status(201).json(save,"Saved...")
         }catch (err){
+            console.log(err)
             resp.status(500).send(err)
         }
     }

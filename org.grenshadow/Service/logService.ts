@@ -2,7 +2,11 @@ import prisma from "../../prisma/Client";
 import {LogDTO} from "../DTO/LogDTO";
 
 export async function saveLog(l:LogDTO,image:string){
+    console.log(l,image)
     try{
+        if (!image) {
+            throw new Error("Image is required.");
+        }
         await prisma.log.create({
             data:{
                 date:l.date,
