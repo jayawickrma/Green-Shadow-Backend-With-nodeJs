@@ -1,5 +1,3 @@
-import {fieldDTO} from "./FieldDTo";
-
 export interface EquipmentDTO {
     equipmentCode: number;
     name: string;

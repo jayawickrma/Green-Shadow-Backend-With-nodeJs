@@ -1,6 +1,3 @@
-import {fieldDTO} from "./FieldDTo";
-import {LogDTO} from "./LogDTO";
-
 export interface StaffDTO {
     memberCode: number;
     firstName: string;

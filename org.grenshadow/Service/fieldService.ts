@@ -5,6 +5,7 @@ import prisma from "../../prisma/Client";
 
 export async function addField(f:fieldDTO,image:string){
     try{
+        console.log(f)
         if (!image) {
             throw new Error("Image is required.");
          }
@@ -14,12 +15,10 @@ export async function addField(f:fieldDTO,image:string){
                 location:f.location,
                 extentSize:f.extentSize,
                 fieldImage1:image,
-                fieldImage2:f.fieldImage2,
                 LogFieldsDetails:{
                     create:f.logList.map((log)=>({logCode:log}))
                 },
                 FieldStaffDetails:{
-                    // @ts-ignore
                     create:f.staffList.map((staff)=>({memberCode:staff}))
                 },
                 CropFieldDetails:{
@@ -29,7 +28,6 @@ export async function addField(f:fieldDTO,image:string){
         })
         console.log('field saved successfully')
     }catch (err){
-        console.log('something went wrong when save field')
         throw new Error('Something went wrong when save field')
     }
 }
@@ -52,13 +50,11 @@ export async function  updateField (id:number ,f:fieldDTO){
                 name:f.name,
                 location:f.location,
                 extentSize:f.extentSize,
-                fieldImage1:f.fieldImage1,
-                fieldImage2:f.fieldImage2,
+                fieldImage1:f.fieldImage,
                 LogFieldsDetails:{
                     create:f.logList.map((log)=>({logCode:log}))
                 },
                 FieldStaffDetails:{
-                    // @ts-ignore
                     create:f.staffList.map((staff)=>({memberCode:staff}))
                 },
                 CropFieldDetails:{

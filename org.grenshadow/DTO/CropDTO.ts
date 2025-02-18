@@ -1,6 +1,3 @@
-import {LogDTO} from "./LogDTO";
-import {fieldDTO} from "./FieldDTo";
-
 export interface CropDTO {
     cropCode: number;
     cropName: string;

@@ -15,7 +15,6 @@ export async function saveLog(l:LogDTO){
                     create:l.fieldList.map((field)=>({fieldCode:field}))
                 },
                 LogStaffDetails:{
-                    // @ts-ignore
                     create:l.staffList.map((member)=>({memberCode:member}))
                 }
             }

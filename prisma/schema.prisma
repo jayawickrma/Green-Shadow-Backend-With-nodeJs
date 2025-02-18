@@ -87,8 +87,7 @@ model Field {
   name                  String
   location              String
   extentSize            Float
-  fieldImage1           String                  @db.LongText
-  fieldImage2           String                  @db.LongText
+  fieldImage            String                  @db.LongText
   // Relations via join tables:
   CropFieldDetails      CropFieldDetails[]
   EquipmentFieldDetails EquipmentFieldDetails[]
