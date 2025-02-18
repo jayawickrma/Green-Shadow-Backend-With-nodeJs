@@ -2,7 +2,7 @@ export interface fieldDTO {
     fieldCode: number;
     name: string;
     location: string;
-    extentSize: number;
+    extentSize: string;
     fieldImage: string;
     staffList:number[];
     logList:number[];

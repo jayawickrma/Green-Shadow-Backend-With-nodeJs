@@ -86,7 +86,7 @@ model Field {
   fieldCode             Int                     @id @default(autoincrement())
   name                  String
   location              String
-  extentSize            Float
+  extentSize            String
   fieldImage            String                  @db.LongText
   // Relations via join tables:
   CropFieldDetails      CropFieldDetails[]

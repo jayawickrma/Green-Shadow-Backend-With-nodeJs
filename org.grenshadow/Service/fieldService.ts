@@ -3,15 +3,18 @@ import {fieldDTO} from "../DTO/FieldDTo";
 import prisma from "../../prisma/Client";
 
 export async function addField(f:fieldDTO,image:string){
+    console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa =",f )
+    console.log(image)
     try{
-        console.log(f)
         if (!image) {
             throw new Error("Image is required.");
          }
+
         await prisma.field.create({
             data:{
                 name:f.name,
                 location:f.location,
+                // @ts-ignore
                 extentSize:f.extentSize,
                 fieldImage:image,
                 LogFieldsDetails:{
@@ -24,12 +27,11 @@ export async function addField(f:fieldDTO,image:string){
                     create:f.cropList.map((crop)=>({cropCode:crop}))
                 }
             }
-
         })
-        console.log(image)
         console.log('field saved successfully')
     }catch (err){
-        throw new Error('Something went wrong when save field')
+        // throw new Error('Something went wrong when save field')
+        throw err;
     }
 }
 export async function  deleteField(id:number){
@@ -51,6 +53,7 @@ export async function  updateField (id:number ,f:fieldDTO){
             data:{
                 name:f.name,
                 location:f.location,
+                // @ts-ignore
                 extentSize:f.extentSize,
                 fieldImage:f.fieldImage,
                 LogFieldsDetails:{
