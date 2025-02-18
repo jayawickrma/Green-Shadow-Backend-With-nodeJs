@@ -1,13 +1,13 @@
 import prisma from "../../prisma/Client";
 import {LogDTO} from "../DTO/LogDTO";
 
-export async function saveLog(l:LogDTO){
+export async function saveLog(l:LogDTO,image:string){
     try{
         await prisma.log.create({
             data:{
                 date:l.date,
                 logDetails:l.logDetails,
-                observedImage:l.observedImage,
+                observedImage:image,
                 LogCropDetails:{
                     create:l.cropList.map((crop)=>({cropCode:crop}))
                 },

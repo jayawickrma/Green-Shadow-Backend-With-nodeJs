@@ -5,9 +5,26 @@ import {updateEqu} from "../Service/equipmentService";
 
 class LogController{
     async saveLog(req:any,resp:any){
-        const logDto:LogDTO =req.body
+        const logDto =req.body
+        const image =req.file.buffer.toString('base64');
+
+        if (!req.file){
+            resp.status(400).json({ message: "No file uploaded" });
+            return
+        }
+
+        if (!logDto.fieldList) {
+            logDto.fieldList = []
+        } else {
+            const fieldList =logDto.fieldList.split(',')
+            const fields :number[] =fieldList.map(Number);
+            logDto.fieldList =fields
+        }
+
+
+
         try{
-            const save=await saveLog(logDto)
+            const save=await saveLog(logDto,image)
             resp.status(201).send(save,"Saved...")
         }catch (err){
             resp.status(500).send(err)

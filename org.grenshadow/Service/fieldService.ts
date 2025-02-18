@@ -3,8 +3,6 @@ import {fieldDTO} from "../DTO/FieldDTo";
 import prisma from "../../prisma/Client";
 
 export async function addField(f:fieldDTO,image:string){
-    console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa =",f )
-    console.log(image)
     try{
         if (!image) {
             throw new Error("Image is required.");
