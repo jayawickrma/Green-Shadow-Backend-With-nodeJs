@@ -1,6 +1,5 @@
 import {deleteCrop, getAllCrops, saveCrop, updateCrop} from "../Service/cropService";
 import {CropDTO} from "../DTO/CropDTO";
-import {type} from "os";
 
 class CropController{
 
@@ -19,16 +18,14 @@ class CropController{
                        data.logList = []
                    } else {
                        const logList= data.logList.split(',');
-                       const logs: number[] = logList.map(Number);
-                       data.logList = logs;
+                       data.logList = logList.map(Number);
                    }
 
                    if (!data.fieldList) {
                        data.fieldList = []
                    } else {
                        const fieldList =data.fieldList.split(',')
-                       const fields :number[] =fieldList.map(Number);
-                       data.fieldList =fields
+                       data.fieldList =fieldList.map(Number)
                    }
 
 

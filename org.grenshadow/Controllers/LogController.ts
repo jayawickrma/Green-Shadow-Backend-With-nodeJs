@@ -1,4 +1,3 @@
-import {exec} from "child_process";
 import {LogDTO} from "../DTO/LogDTO";
 import {deleteLog, getAllLogs, saveLog, updateLog} from "../Service/logService";
 
@@ -20,23 +19,20 @@ class LogController{
                 logDto.staffList =[];
             }else {
                 const staffList =logDto.staffList.split(',')
-                const staffs:number[] =staffList.map(Number)
-                logDto.staffList=staffs
+                logDto.staffList=staffList.map(Number)
             }
             if (!logDto.cropList){
                 logDto.cropList =[]
             }else {
                 const cropList =logDto.cropList.split(',');
-                const crops:number[] =cropList.map(Number);
-                logDto.cropList=crops
+                logDto.cropList=cropList.map(Number)
             }
 
             if (!logDto.fieldList) {
                 logDto.fieldList = []
             } else {
                 const fieldList =logDto.fieldList.split(',')
-                const fields :number[] =fieldList.map(Number);
-                logDto.fieldList =fields
+                logDto.fieldList =fieldList.map(Number)
             }
 
             const save=await saveLog(logDto,image)

@@ -17,24 +17,21 @@ class FieldController{
                 data.staffList =[];
             }else {
                 const staffList =data.staffList.split(',')
-                const staffs:number[] =staffList.map(Number)
-                data.staffList=staffs
+                data.staffList=staffList.map(Number)
             }
 
             if (!data.logList){
                 data.logList =[];
             }else {
                 const logList =data.logList.split(',')
-                const logs:number[] =logList.map(Number)
-                data.logList=logs
+                data.logList=logList.map(Number)
             }
 
             if (!data.cropList){
                 data.cropList =[]
             }else {
                 const cropList =data.cropList.split(',');
-                const crops:number[] =cropList.map(Number);
-                data.cropList=crops
+                data.cropList=cropList.map(Number)
             }
 
 
