@@ -15,7 +15,7 @@ export async function saveLog(l:LogDTO){
                     create:l.fieldList.map((field)=>({fieldCode:field}))
                 },
                 LogStaffDetails:{
-                    create:l.staffList.map((member)=>({memberCode:member}))
+                    create:l.staffList.map((staff)=>({staffId:staff}))
                 }
             }
         })
@@ -62,8 +62,7 @@ export async function updateLog(id:number,l:LogDTO){
                     create:l.fieldList.map((field)=>({fieldCode:field}))
                 },
                 LogStaffDetails:{
-                    // @ts-ignore
-                    create:l.staffList.map((member)=>({memberCode:member}))
+                    create:l.staffList.map((staff)=>({staffId:staff}))
                 }
             }
         })

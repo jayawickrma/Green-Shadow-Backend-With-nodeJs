@@ -1,4 +1,3 @@
-import {PrismaClient} from '@prisma/client'
 import {fieldDTO} from "../DTO/FieldDTo";
 
 import prisma from "../../prisma/Client";
@@ -14,18 +13,20 @@ export async function addField(f:fieldDTO,image:string){
                 name:f.name,
                 location:f.location,
                 extentSize:f.extentSize,
-                fieldImage1:image,
+                fieldImage:image,
                 LogFieldsDetails:{
                     create:f.logList.map((log)=>({logCode:log}))
                 },
                 FieldStaffDetails:{
-                    create:f.staffList.map((staff)=>({memberCode:staff}))
+                    create:f.staffList.map((staff)=>({staffId:staff}))
                 },
                 CropFieldDetails:{
                     create:f.cropList.map((crop)=>({cropCode:crop}))
                 }
             }
+
         })
+        console.log(image)
         console.log('field saved successfully')
     }catch (err){
         throw new Error('Something went wrong when save field')
@@ -44,18 +45,19 @@ export async function  deleteField(id:number){
 }
 export async function  updateField (id:number ,f:fieldDTO){
     try{
+
         await prisma.field.update({
             where:{fieldCode:id},
             data:{
                 name:f.name,
                 location:f.location,
                 extentSize:f.extentSize,
-                fieldImage1:f.fieldImage,
+                fieldImage:f.fieldImage,
                 LogFieldsDetails:{
                     create:f.logList.map((log)=>({logCode:log}))
                 },
                 FieldStaffDetails:{
-                    create:f.staffList.map((staff)=>({memberCode:staff}))
+                    create:f.staffList.map((member)=>({staffId:member}))
                 },
                 CropFieldDetails:{
                     create:f.cropList.map((crop)=>({cropCode:crop}))

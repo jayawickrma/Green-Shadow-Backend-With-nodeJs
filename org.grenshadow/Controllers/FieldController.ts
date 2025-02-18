@@ -18,7 +18,7 @@ class FieldController{
             }else {
                 const staffList =data.staffList.split(',')
                 const staffs:number[] =staffList.map(Number)
-                data.staffList(staffs)
+                data.staffList=staffs
             }
 
             if (!data.logList){
@@ -26,7 +26,7 @@ class FieldController{
             }else {
                 const logList =data.logList.split(',')
                 const logs:number[] =logList.map(Number)
-                data.logList(logs)
+                data.logList=logs
             }
 
             if (!data.cropList){
@@ -34,7 +34,7 @@ class FieldController{
             }else {
                 const cropList =data.cropList.split(',');
                 const crops:number[] =cropList.map(Number);
-                data.cropList(crops)
+                data.cropList=crops
             }
 
 
