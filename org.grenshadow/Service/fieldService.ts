@@ -73,25 +73,25 @@ export async function  updateField (id:number ,f:fieldDTO){
 export async function getAllFields(){
     try{
         await prisma.field.findMany({
-            include: {
+            select: {
                 CropFieldDetails: {
-                    include: {
-                        crop: true
+                    select: {
+                        cropCode: true
                     }
                 },
                 EquipmentFieldDetails: {
-                    include: {
-                        equipment: true
+                    select: {
+                        equipmentCode: true
                     }
                 },
                 FieldStaffDetails: {
-                    include: {
-                        staff: true
+                    select: {
+                        staffId: true
                     }
                 },
                 LogFieldsDetails: {
-                    include: {
-                        log: true
+                    select: {
+                        logCode: true
                     }
                 }
             }

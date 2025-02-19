@@ -27,26 +27,7 @@ export async function addVehicle(vehicleDto:VehicleDTO){
 }
 export async function getAllVehicles(){
     try{
-        const all =await prisma.vehicle.findMany({
-            include: {
-                EquipmentStaffDetails: {
-                    include: {
-                        equipment: true
-                    }
-                },
-                FieldStaffDetails: {
-                    include: {
-                        field: true
-                    }
-                },
-                LogStaffDetails: {
-                    include: {
-                        log: true
-                    }
-                },
-                vehicleList: true
-            }
-        })
+        const all =await prisma.vehicle.findMany()
             if (all){
                 return all
             }

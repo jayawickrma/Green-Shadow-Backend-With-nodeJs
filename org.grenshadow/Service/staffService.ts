@@ -46,7 +46,26 @@ export async function deleteStaff(id:number){
 
 export async function getAllStaff(){
     try{
-        const getAll=await prisma.staff.findMany()
+        const getAll=await prisma.staff.findMany({
+            include: {
+                EquipmentStaffDetails: {
+                    select: {
+                        equipmentCode: true
+                    }
+                },
+                FieldStaffDetails: {
+                    select: {
+                        fieldCode: true
+                    }
+                },
+                LogStaffDetails: {
+                    select: {
+                        logCode: true
+                    }
+                },
+                vehicleList: true
+            }
+        })
             if (getAll){
                 return getAll;
             }

@@ -39,7 +39,25 @@ export async function deleteLog(id:number){
 }
 export async function getAllLogs(){
     try{
-        const getAll =await prisma.log.findMany()
+        const getAll =await prisma.log.findMany({
+            include: {
+                LogStaffDetails: {
+                    select: {
+                        staffId: true
+                    }
+                },
+                LogCropDetails: {
+                    select: {
+                        cropCode: true
+                    }
+                },
+                LogFieldsDetails: {
+                    select: {
+                        fieldCode: true
+                    }
+                }
+            }
+        })
             if (getAll){
                 return getAll
             }else {

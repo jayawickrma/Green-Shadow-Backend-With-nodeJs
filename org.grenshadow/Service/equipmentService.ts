@@ -35,13 +35,13 @@ export async function getAllEqu(){
         await prisma.equipment.findMany({
             include: {
                 EquipmentFieldDetails: {
-                    include: {
-                        field: true
+                    select: {
+                        fieldCode: true
                     }
                 },
                 EquipmentStaffDetails: {
-                    include: {
-                        staff: true
+                    select: {
+                        staffId: true
                     }
                 }
             }

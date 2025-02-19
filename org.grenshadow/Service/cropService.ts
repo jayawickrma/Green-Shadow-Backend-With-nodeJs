@@ -54,13 +54,13 @@ export async function getAllCrops(){
             const getAll =await prisma.crop.findMany({
                 include: {
                     CropFieldDetails: {
-                        include: {
-                            field: true
+                        select: {
+                            fieldCode: true
                         }
                     },
                     LogCropDetails: {
-                        include: {
-                            log: true
+                        select: {
+                            logCode: true
                         }
                     }
                 }
