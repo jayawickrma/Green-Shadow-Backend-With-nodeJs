@@ -51,7 +51,20 @@ export async function saveCrop(c: CropDTO,image:string) {
 }
 export async function getAllCrops(){
         try{
-            const getAll =await prisma.crop.findMany()
+            const getAll =await prisma.crop.findMany({
+                include: {
+                    CropFieldDetails: {
+                        include: {
+                            field: true
+                        }
+                    },
+                    LogCropDetails: {
+                        include: {
+                            log: true
+                        }
+                    }
+                }
+            })
                 if (getAll){
                     return getAll
                 }

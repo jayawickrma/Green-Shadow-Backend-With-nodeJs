@@ -32,7 +32,20 @@ export async function deleteEqu(id:number){
 }
 export async function getAllEqu(){
     try{
-        await prisma.equipment.findMany();
+        await prisma.equipment.findMany({
+            include: {
+                EquipmentFieldDetails: {
+                    include: {
+                        field: true
+                    }
+                },
+                EquipmentStaffDetails: {
+                    include: {
+                        staff: true
+                    }
+                }
+            }
+        });
     }catch (err){
         console.log(err)
         throw new Error("something went wrong.")
