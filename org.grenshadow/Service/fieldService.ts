@@ -72,8 +72,8 @@ export async function  updateField (id:number ,f:fieldDTO){
 }
 export async function getAllFields(){
     try{
-        await prisma.field.findMany({
-            select: {
+       const all =await prisma.field.findMany({
+            include: {
                 CropFieldDetails: {
                     select: {
                         cropCode: true
@@ -96,6 +96,7 @@ export async function getAllFields(){
                 }
             }
         })
+        return all;
     }catch (err){
         console.log('couldnt load data '+err)
         throw new Error('something went wrong')

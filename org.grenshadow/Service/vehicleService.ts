@@ -28,11 +28,11 @@ export async function addVehicle(vehicleDto:VehicleDTO){
 export async function getAllVehicles(){
     try{
         const all =await prisma.vehicle.findMany()
-            if (all){
-                return all
-            }
+        console.log(all)
+            return all
+
     }catch (err){
-        console.log(err)
+        console.log("seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",err)
         throw new Error("failed to load vehicle data...")
     }
 }

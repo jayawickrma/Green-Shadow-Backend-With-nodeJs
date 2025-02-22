@@ -33,6 +33,7 @@ class EquipmentController{
     async getAllEquipment(req:any,resp:any){
         try{
             const all =await getAllEqu()
+            console.log(all)
             resp.status(200).send(all)
         }catch (err){
             resp.status(500).send(err)

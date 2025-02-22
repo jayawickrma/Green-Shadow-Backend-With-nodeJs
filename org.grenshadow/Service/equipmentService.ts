@@ -32,7 +32,7 @@ export async function deleteEqu(id:number){
 }
 export async function getAllEqu(){
     try{
-        await prisma.equipment.findMany({
+       const all =await prisma.equipment.findMany({
             include: {
                 EquipmentFieldDetails: {
                     select: {
@@ -46,6 +46,7 @@ export async function getAllEqu(){
                 }
             }
         });
+        console.log(all)
     }catch (err){
         console.log(err)
         throw new Error("something went wrong.")
