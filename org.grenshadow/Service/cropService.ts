@@ -51,6 +51,7 @@ export async function saveCrop(c: CropDTO,image:string) {
 }
 export async function getAllCrops(){
         try{
+            console.log("service ekata awa ==============================")
             const getAll =await prisma.crop.findMany({
                 include: {
                     CropFieldDetails: {
@@ -65,9 +66,11 @@ export async function getAllCrops(){
                     }
                 }
             })
+            console.log(getAll)
                 if (getAll){
                     return getAll
                 }
+
         }catch (err){
             console.log('failed to load data '+err)
             throw new Error('Failed to load data')

@@ -16,6 +16,7 @@ class CropRoutes{
                 this.initialRoutes();
         }
         initialRoutes():void{
+                console.log("============================== Call una backend eka");
                 this.router.get('/getAllCrops',this.cropController.getAllCrops)
                 this.router.post('/saveCrop',upload.single('cropImage'),this.cropController.saveCrop)
                 this.router.delete('/deleteCrop',this.cropController.deleteCrop)
