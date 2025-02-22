@@ -14,7 +14,7 @@ class MainRouter{
             this.router =Router()
             this.router.use('/auth',userRoutes.router)
             this.router.use('/field',authenticateToken,FieldRoutes.router)
-            this.router.use('/crop',CropRoutes.router)
+            this.router.use('/crop',authenticateToken,CropRoutes.router)
             this.router.use('/log',authenticateToken,LogRoutes.router)
             this.router.use('/equipment',authenticateToken,EquipmentRoutes.router)
             this.router.use('/staff',authenticateToken,StaffRoutes.router)

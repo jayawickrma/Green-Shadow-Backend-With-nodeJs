@@ -50,7 +50,6 @@ class CropController{
     }
     async getAllCrops(req:any ,resp:any){
         try{
-            console.log("controller ekata awa =========================")
             const all =await getAllCrops();
             resp.status(200).send(all)
         }catch (err){
