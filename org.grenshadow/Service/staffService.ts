@@ -66,9 +66,8 @@ export async function getAllStaff(){
                 vehicleList: true
             }
         })
-            if (getAll){
-                return getAll;
-            }
+        console.log(getAll)
+            return getAll
     }catch (err){
         console.log(err)
     }
