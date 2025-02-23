@@ -30,9 +30,7 @@ export async function getAllVehicles(){
         const all =await prisma.vehicle.findMany()
         console.log(all)
             return all
-
     }catch (err){
-        console.log("seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",err)
         throw new Error("failed to load vehicle data...")
     }
 }

@@ -40,6 +40,7 @@ class CropController{
 
     async deleteCrop(req:any ,resp:any){
         const id=parseInt(req.query['id'])
+        console.log(id)
         try{
             await deleteCrop(id)
             console.log(id)

@@ -34,6 +34,7 @@ class VehicleController{
     async getAllVehicles(req:any,resp:any){
         try{
             const all =await getAllVehicles();
+            resp.status(200).send(all)
         }catch (err){
             resp.status(500).send(err)
             console.log(err)

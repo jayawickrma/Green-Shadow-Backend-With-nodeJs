@@ -32,7 +32,7 @@ class StaffController{
     async getAllStaff(req:any,resp:any){
         try{
             const all =await getAllStaff()
-            resp.status(200)
+            resp.status(200).send(all)
         }catch (err){
             resp.status(500).send(err)
         }

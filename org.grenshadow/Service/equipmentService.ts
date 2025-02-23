@@ -47,6 +47,7 @@ export async function getAllEqu(){
             }
         });
         console.log(all)
+       return all;
     }catch (err){
         console.log(err)
         throw new Error("something went wrong.")
