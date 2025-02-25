@@ -3,6 +3,7 @@ import {deleteEqu, getAllEqu, saveEqu, updateEqu} from "../Service/equipmentServ
 class EquipmentController{
     async saveEquipment(req:any ,resp:any){
         try{
+            console.log(req.body)
             const save =await saveEqu(req.body)
             resp.status(201).json(save)
             console.log("saved..")
