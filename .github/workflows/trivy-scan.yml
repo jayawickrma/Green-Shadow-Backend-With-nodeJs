@@ -1,0 +1,123 @@
+name: Trivy Security Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  trivy-scan:
+    name: Trivy Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
+      actions: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t greenshadow-backend:${{ github.sha }} .
+          docker tag greenshadow-backend:${{ github.sha }} greenshadow-backend:latest
+        continue-on-error: false
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'greenshadow-backend:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+        continue-on-error: true
+
+      - name: Upload Trivy results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+        continue-on-error: true
+
+      - name: Run Trivy scan for table output
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'greenshadow-backend:latest'
+          format: 'table'
+          output: 'trivy-report.txt'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+        continue-on-error: true
+
+      - name: Display scan results in logs
+        if: always()
+        run: |
+          if [ -f trivy-report.txt ]; then
+            echo "=== Trivy Scan Results ==="
+            cat trivy-report.txt
+          else
+            echo "No scan report generated"
+          fi
+
+      - name: Comment PR with scan results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            const fs = require('fs');
+            let report = '';
+            try {
+              report = fs.readFileSync('trivy-report.txt', 'utf8');
+              if (!report || report.trim() === '') {
+                report = 'No vulnerabilities found! ✅';
+              }
+            } catch (error) {
+              report = 'Scan completed but report file not found. Check workflow logs for details.';
+            }
+            
+            const body = `## 🔍 Trivy Security Scan Results
+            
+            <details>
+            <summary>Click to view detailed scan results</summary>
+            
+            \`\`\`
+            ${report}
+            \`\`\`
+            
+            </details>
+            
+            **Severity Levels Scanned:** CRITICAL, HIGH, MEDIUM
+            **Image:** greenshadow-backend:latest
+            **Commit:** ${context.sha.substring(0, 7)}
+            `;
+            
+            try {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            } catch (error) {
+              console.error('Failed to create comment:', error);
+            }
+
+      - name: Check for critical vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'greenshadow-backend:latest'
+          format: 'table'
+          exit-code: '1'
+          severity: 'CRITICAL'
+          ignore-unfixed: true
